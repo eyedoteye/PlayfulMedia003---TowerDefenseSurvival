@@ -24,6 +24,8 @@ public class CameraBased_QuadTransformTool_Editor : Editor
   private const string pixelGridSizePropertyName = "pixelGridSize";
   private const string gridEnabledPropertyName = "gridEnabled";
 
+  private GUIContent gridEnabledPropertyLabel = new GUIContent("Show Grid");
+
   private bool isFirstAttach = true;
   private void OnFirstAttach()
   {
@@ -150,7 +152,7 @@ public class CameraBased_QuadTransformTool_Editor : Editor
     }
 
     EditorGUILayout.PropertyField(pixelGridSizeProperty);
-    EditorGUILayout.PropertyField(gridEnabledProperty);
+    EditorGUILayout.PropertyField(gridEnabledProperty, gridEnabledPropertyLabel);
 
     if(
       cameraBased_QuadTransformTool.targetObject != null
@@ -202,11 +204,11 @@ public class CameraBased_QuadTransformTool_Editor : Editor
 
       EditorGUILayout.BeginHorizontal();
       GUILayout.FlexibleSpace();
-      if(GUILayout.Button("Recenter"))
+      if(GUILayout.Button("Recenter Mesh Vertices"))
       {
         Undo.RecordObject(
           cameraBased_QuadTransformTool.targetMesh,
-          "Recenter Mesh Positions");
+          "Recenter Mesh Vertices");
         cameraBased_QuadTransformTool.Recenter();
       }
       EditorGUILayout.EndHorizontal();
