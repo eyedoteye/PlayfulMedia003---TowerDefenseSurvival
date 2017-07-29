@@ -115,6 +115,8 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
   {
     if(targetObject == null)
       return false;
+    if(targetMesh == null)
+      return false;
 
     Vector3 targetScreenPosition = targetCamera.WorldToScreenPoint(
       targetObject.transform.position);

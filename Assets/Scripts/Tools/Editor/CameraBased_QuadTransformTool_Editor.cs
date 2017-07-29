@@ -226,6 +226,22 @@ public class CameraBased_QuadTransformTool_Editor : Editor
         cameraBased_QuadTransformTool.Recenter();
       }
       EditorGUILayout.EndHorizontal();
+
+      EditorGUILayout.BeginHorizontal();
+      GUILayout.FlexibleSpace();
+      if(GUILayout.Button("Save Mesh"))
+      {
+        Mesh targetMesh = cameraBased_QuadTransformTool.targetMesh;
+        string savePath = EditorUtility.SaveFilePanelInProject(
+          "Save Mesh",
+          targetMesh.name + "Mesh", "asset",
+          "Please enter the coolest filename you can think of.");
+        AssetDatabase.CreateAsset(
+          targetMesh, 
+          savePath);
+        AssetDatabase.SaveAssets();
+      }
+      EditorGUILayout.EndHorizontal();
     }
     Build_MeshVertices_Editors();
 
