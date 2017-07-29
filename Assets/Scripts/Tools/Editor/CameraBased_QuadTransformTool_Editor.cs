@@ -152,8 +152,9 @@ public class CameraBased_QuadTransformTool_Editor : Editor
     EditorGUILayout.PropertyField(pixelGridSizeProperty);
     EditorGUILayout.PropertyField(gridEnabledProperty);
 
-    if(!(targetObjectProperty.objectReferenceValue == null)
-      && !(targetCameraProperty.objectReferenceValue == null))
+    if(
+      targetObjectProperty.objectReferenceValue != null
+      && targetCameraProperty.objectReferenceValue != null)
     {
       GameObject targetObject = cameraBased_QuadTransformTool.targetObject;
 
@@ -185,7 +186,6 @@ public class CameraBased_QuadTransformTool_Editor : Editor
       newTargetObjectPosition =
         cameraBased_QuadTransformTool.targetCamera.ScreenToWorldPoint(
         newTargetObjectPosition);
-
 
       if(Vector3.Distance(newTargetObjectPosition,
         cameraBased_QuadTransformTool.targetObject.transform.position)
