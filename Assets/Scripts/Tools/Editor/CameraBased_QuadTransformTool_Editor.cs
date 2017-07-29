@@ -136,25 +136,32 @@ public class CameraBased_QuadTransformTool_Editor : Editor
     }
 
     EditorGUILayout.PropertyField(targetObjectProperty);
-    if(targetObjectProperty.objectReferenceValue != cameraBased_QuadTransformTool.targetObject)
+    EditorGUILayout.PropertyField(targetCameraProperty);
+    if(
+      targetObjectProperty.objectReferenceValue != cameraBased_QuadTransformTool.targetObject 
+      || targetCameraProperty.objectReferenceValue != cameraBased_QuadTransformTool.targetCamera)
     {
       serializedObject.ApplyModifiedProperties();
 
-      if(cameraBased_QuadTransformTool.targetObject == null)
+      if(
+        cameraBased_QuadTransformTool.targetObject == null
+        || cameraBased_QuadTransformTool.targetCamera == null)
+      {
         cameraBased_QuadTransformTool.ClearMesh();
+      }
       else
       {
         cameraBased_QuadTransformTool.GetMesh();
         cameraBased_QuadTransformTool.Cache_Mesh_Into_MeshVertices();
       }
     }
-    EditorGUILayout.PropertyField(targetCameraProperty);
+
     EditorGUILayout.PropertyField(pixelGridSizeProperty);
     EditorGUILayout.PropertyField(gridEnabledProperty);
 
     if(
-      targetObjectProperty.objectReferenceValue != null
-      && targetCameraProperty.objectReferenceValue != null)
+      cameraBased_QuadTransformTool.targetObject != null
+      && cameraBased_QuadTransformTool.targetCamera != null)
     {
       GameObject targetObject = cameraBased_QuadTransformTool.targetObject;
 

@@ -91,6 +91,7 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
   public void ClearMesh()
   {
     targetMesh = null;
+    meshVertices = null;
   }
 
   public bool IsMeshInstantiated()
