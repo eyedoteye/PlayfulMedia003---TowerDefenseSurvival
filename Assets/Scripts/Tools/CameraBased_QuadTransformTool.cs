@@ -73,6 +73,8 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
   private Vector2 cached_ScreenDimensions;
   private float cached_relativeDistance;
 
+  private Color gridColor = new Color(1f, 1f, 0f, 0.5f);
+
   private Vector3 rotatePositionOverPoint(
     Vector3 position,
     Vector3 point,
@@ -280,7 +282,7 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
           cached_relativeDistance));
         Debug.DrawLine(
           botPosition, topPosition,
-          Color.yellow,
+          gridColor,
           0,
           false);
 
@@ -302,7 +304,7 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
           cached_relativeDistance));
         Debug.DrawLine(
           leftPosition, rightPosition,
-          Color.yellow,
+          gridColor,
           0,
           false);
 
