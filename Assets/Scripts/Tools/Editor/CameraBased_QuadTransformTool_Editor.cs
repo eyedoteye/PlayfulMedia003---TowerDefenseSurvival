@@ -27,6 +27,12 @@ public class CameraBased_QuadTransformTool_Editor : Editor
   private GUIContent gridEnabledPropertyLabel = new GUIContent("Show Grid");
 
   private bool isFirstAttach = true;
+
+  private float RoundForInput(float number)
+  {
+    return (int)(number * 100f + 0.5f) / 100f;
+  }
+
   private void OnFirstAttach()
   {
     if(isFirstAttach)
@@ -89,9 +95,13 @@ public class CameraBased_QuadTransformTool_Editor : Editor
       CameraBased_QuadTransformTool.MeshVertex.RelativeToCamera relativeToCamera =
         meshVertex.relativeToCamera;
 
+      relativeToCamera.screenPosition.x = RoundForInput(relativeToCamera.screenPosition.x);
+      relativeToCamera.screenPosition.y = RoundForInput(relativeToCamera.screenPosition.y);
+      relativeToCamera.distance = RoundForInput(relativeToCamera.distance);
+
       EditorGUILayout.LabelField("Vertex " + vertexIndex);
 
-      Vector2 pixelGridSize = pixelGridSizeProperty.vector2Value;
+      Vector2 pixelGridSize = cameraBased_QuadTransformTool.pixelGridSize;
       Vector2 gridPosition = relativeToCamera.screenPosition;
       gridPosition.x /= pixelGridSize.x;
       gridPosition.y /= pixelGridSize.y;
@@ -163,9 +173,9 @@ public class CameraBased_QuadTransformTool_Editor : Editor
         cameraBased_QuadTransformTool.targetObject.transform.position);
       Vector2 pixelGridSize = pixelGridSizeProperty.vector2Value;
 
-      targetObjectPosition.x = (int)(targetObjectPosition.x * 100f + 0.5f) / 100f;
-      targetObjectPosition.y = (int)(targetObjectPosition.y * 100f + 0.5f) / 100f;
-      targetObjectPosition.z = (int)(targetObjectPosition.z * 100f + 0.5f) / 100f;
+      targetObjectPosition.x = RoundForInput(targetObjectPosition.x);
+      targetObjectPosition.y = RoundForInput(targetObjectPosition.y);
+      targetObjectPosition.z = RoundForInput(targetObjectPosition.z);
 
       Vector2 targetObjectGridPosition = targetObjectPosition;
       targetObjectGridPosition.x /= pixelGridSize.x;

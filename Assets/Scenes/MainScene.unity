@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748193, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -108,85 +108,6 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &221552401
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 221552403}
-  - component: {fileID: 221552402}
-  m_Layer: 0
-  m_Name: Directional Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &221552402
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 221552401}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!4 &221552403
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 221552401}
-  m_LocalRotation: {x: 0.3701298, y: 0.43744853, z: -0.20398559, w: 0.7937459}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: 57.72, z: 0}
 --- !u!1 &377783283
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,8 +119,9 @@ GameObject:
   - component: {fileID: 377783286}
   - component: {fileID: 377783285}
   - component: {fileID: 377783284}
+  - component: {fileID: 377783288}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,12 +187,28 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 377783283}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.0833333, y: 0.39978027, z: 2.2497385}
+  m_LocalPosition: {x: -2.52, y: 0.11, z: 1.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &377783288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 377783283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ca77bba38176a4bac8b323f994044c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 377783283}
+  targetCamera: {fileID: 981012134}
+  pixelGridSize: {x: 32, y: 32}
+  gridEnabled: 0
+  targetMesh: {fileID: 1609372415}
 --- !u!1 &981012130
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +366,7 @@ Mesh:
       format: 0
       dimension: 4
     m_DataSize: 192
-    _typelessdata: 69a3eec0e50db1c03ee49db40000000000000000000080bf00000000000000000000803f0000000000000000000080bf6ea3ee40e40db1403ee49d340000000000000000000080bf0000803f0000803f0000803f0000000000000000000080bf66a3ee40e50db1c03ee49db40000000000000000000080bf0000803f000000000000803f0000000000000000000080bf6da3eec0e90db14034e49d340000000000000000000080bf000000000000803f0000803f0000000000000000000080bf
+    _typelessdata: b3f0e6c02e5ba9c0aa49adb40000000000000000000080bf00000000000000000000803f0000000000000000000080bfb5f0e640305ba940a849ad340000000000000000000080bf0000803f0000803f0000803f0000000000000000000080bfb3f0e6402e5ba9c0aa49adb40000000000000000000080bf0000803f000000000000803f0000000000000000000080bfb5f0e6c0305ba940a849ad340000000000000000000080bf000000000000803f0000803f0000000000000000000080bf
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -499,6 +437,7 @@ GameObject:
   - component: {fileID: 1301225482}
   - component: {fileID: 1301225481}
   - component: {fileID: 1301225480}
+  - component: {fileID: 1301225484}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -514,12 +453,12 @@ MeshRenderer:
   m_GameObject: {fileID: 1301225479}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3de76ad34a911c64c882cdaa8132e017, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -570,8 +509,24 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1301225484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1301225479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ca77bba38176a4bac8b323f994044c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 1301225479}
+  targetCamera: {fileID: 981012134}
+  pixelGridSize: {x: 32, y: 32}
+  gridEnabled: 0
+  targetMesh: {fileID: 1067259914}
 --- !u!43 &1609372415
 Mesh:
   m_ObjectHideFlags: 0
@@ -640,7 +595,7 @@ Mesh:
       format: 0
       dimension: 4
     m_DataSize: 192
-    _typelessdata: 000000bf000000bf31310da40000000000000000000080bf00000000000000000000803f0000000000000000000080bf0000003f0000003f31310d240000000000000000000080bf0000803f0000803f0000803f0000000000000000000080bf0000003f000000bf31310da40000000000000000000080bf0000803f000000000000803f0000000000000000000080bf000000bf0000003f31310d240000000000000000000080bf000000000000803f0000803f0000000000000000000080bf
+    _typelessdata: 4056f6be1f56f6becc826f330000000000000000000080bf00000000000000000000803f0000000000000000000080bff055f63e4156f63e90297db30000000000000000000080bf0000803f0000803f0000803f0000000000000000000080bff055f63e1f56f6becc826f330000000000000000000080bf0000803f000000000000803f0000000000000000000080bf4056f6be4156f63e90297db30000000000000000000080bf000000000000803f0000803f0000000000000000000080bf
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
