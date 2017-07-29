@@ -68,7 +68,6 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
 
   public MeshVertex[] meshVertices;
   public Mesh targetMesh;
-  private Vector2 viewportPosition = new Vector2(0.5f, 0.5f);
 
   private Vector2 cached_ScreenDimensions;
   private float cached_relativeDistance;

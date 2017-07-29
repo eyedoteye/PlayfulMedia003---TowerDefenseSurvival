@@ -158,8 +158,6 @@ public class CameraBased_QuadTransformTool_Editor : Editor
       cameraBased_QuadTransformTool.targetObject != null
       && cameraBased_QuadTransformTool.targetCamera != null)
     {
-      GameObject targetObject = cameraBased_QuadTransformTool.targetObject;
-
       Vector3 targetObjectPosition = 
         cameraBased_QuadTransformTool.targetCamera.WorldToScreenPoint(
         cameraBased_QuadTransformTool.targetObject.transform.position);
