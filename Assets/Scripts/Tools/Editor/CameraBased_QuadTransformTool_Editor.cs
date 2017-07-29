@@ -165,9 +165,9 @@ public class CameraBased_QuadTransformTool_Editor : Editor
         cameraBased_QuadTransformTool.targetObject.transform.position);
       Vector2 pixelGridSize = pixelGridSizeProperty.vector2Value;
 
-      targetObjectPosition.x = (int)(targetObjectPosition.x * 100f) / 100f;
-      targetObjectPosition.y = (int)(targetObjectPosition.y * 100f) / 100f;
-      targetObjectPosition.z = (int)(targetObjectPosition.z * 100f) / 100f;
+      targetObjectPosition.x = (int)(targetObjectPosition.x * 100f + 0.5f) / 100f;
+      targetObjectPosition.y = (int)(targetObjectPosition.y * 100f + 0.5f) / 100f;
+      targetObjectPosition.z = (int)(targetObjectPosition.z * 100f + 0.5f) / 100f;
 
       Vector2 targetObjectGridPosition = targetObjectPosition;
       targetObjectGridPosition.x /= pixelGridSize.x;
