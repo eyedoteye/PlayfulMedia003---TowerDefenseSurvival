@@ -127,14 +127,6 @@ public class CameraBased_QuadTransformTool_Editor : Editor
     serializedObject.Update();
     UpdateVectorCache();
 
-    if(
-      cameraBased_QuadTransformTool.targetMesh != null
-      && !cameraBased_QuadTransformTool.IsMeshInstantiated())
-    {
-      cameraBased_QuadTransformTool.GetMesh();
-      cameraBased_QuadTransformTool.Cache_Mesh_Into_MeshVertices();
-    }
-
     EditorGUILayout.PropertyField(targetObjectProperty);
     EditorGUILayout.PropertyField(targetCameraProperty);
     if(
