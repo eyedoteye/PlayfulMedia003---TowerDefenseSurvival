@@ -106,6 +106,9 @@ public class CameraBased_QuadTransformTool_Editor : Editor
       gridPosition.x /= pixelGridSize.x;
       gridPosition.y /= pixelGridSize.y;
 
+      gridPosition.x = RoundForInput(gridPosition.x);
+      gridPosition.y = RoundForInput(gridPosition.y);
+
       gridPosition = EditorGUILayout.Vector2Field(
         " ↑ Grid Position",
         gridPosition);
@@ -119,6 +122,9 @@ public class CameraBased_QuadTransformTool_Editor : Editor
 
       CameraBased_QuadTransformTool.MeshVertex.RelativeToCamera oldRelativeToCamera =
         meshVertex.relativeToCamera;
+      oldRelativeToCamera.screenPosition.x = RoundForInput(oldRelativeToCamera.screenPosition.x);
+      oldRelativeToCamera.screenPosition.y = RoundForInput(oldRelativeToCamera.screenPosition.y);
+      oldRelativeToCamera.distance = RoundForInput(oldRelativeToCamera.distance);
 
       if(
         oldRelativeToCamera.screenPosition != relativeToCamera.screenPosition ||
