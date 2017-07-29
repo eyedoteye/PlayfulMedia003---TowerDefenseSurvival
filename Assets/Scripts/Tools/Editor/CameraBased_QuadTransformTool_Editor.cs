@@ -29,12 +29,13 @@ public class CameraBased_QuadTransformTool_Editor : Editor
   {
     if(isFirstAttach)
     {
-      if(cameraBased_QuadTransformTool.targetCamera == null)
-      {
-        Camera targetCamera = cameraBased_QuadTransformTool.GetComponentInParent<Camera>();
-        if(targetCamera != null)
-          cameraBased_QuadTransformTool.targetCamera = targetCamera;
-      }
+      GameObject targetObject = cameraBased_QuadTransformTool.gameObject;
+      Camera targetCamera = targetObject.GetComponent<Camera>();
+      if(targetCamera != null)
+        cameraBased_QuadTransformTool.targetCamera = targetCamera;
+      else
+        cameraBased_QuadTransformTool.targetObject = targetObject;
+
     }
     isFirstAttach = false;
   }
