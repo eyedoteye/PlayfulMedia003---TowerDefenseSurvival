@@ -228,22 +228,12 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
 
   public void OnDrawGizmosSelected()
   {
-    if(targetCamera != null)
+    if(targetMesh != null)
     {
-      Gizmos.color = Color.yellow;
       if(gridEnabled)
         DrawGrid();
 
-      if(targetMesh != null)
-      {
-        Gizmos.color = Color.black;
-        DrawCross();
-      }
-
-      Vector3 crossMid_WorldCoords = targetCamera.ViewportToWorldPoint(new Vector3(
-        viewportPosition.x,
-        viewportPosition.y));
-      Gizmos.DrawLine(targetCamera.transform.position, crossMid_WorldCoords);
+      DrawCross();
     }
   }
 
@@ -288,9 +278,11 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
           currentScreenXPosition,
           cached_ScreenDimensions.y,
           cached_relativeDistance));
-        Gizmos.DrawLine(
-          botPosition,
-          topPosition);
+        Debug.DrawLine(
+          botPosition, topPosition,
+          Color.yellow,
+          0,
+          false);
 
         currentScreenXPosition += pixelGridSize.x;
       }
@@ -308,9 +300,11 @@ public class CameraBased_QuadTransformTool : MonoBehaviour {
           cached_ScreenDimensions.x,
           currentScreenYPosition,
           cached_relativeDistance));
-        Gizmos.DrawLine(
-          leftPosition,
-          rightPosition);
+        Debug.DrawLine(
+          leftPosition, rightPosition,
+          Color.yellow,
+          0,
+          false);
 
         currentScreenYPosition += pixelGridSize.y;
       }
