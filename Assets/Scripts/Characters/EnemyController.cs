@@ -15,6 +15,6 @@ public class EnemyController : MonoBehaviour
 	void Update()
   {
     NavMeshAgent agent = GetComponent<NavMeshAgent>();
-    agent.destination = navigationTarget.transform.position;
+    agent.SetDestination(navigationTarget.transform.position);
   }
 }

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start()
   {
-    rigidbody = GetComponent<Rigidbody>();	
+    rigidbody = GetComponentInChildren<Rigidbody>();	
 	}
 	
 	// Update is called once per frame
@@ -31,4 +31,8 @@ public class PlayerController : MonoBehaviour {
     rigidbody.AddForce(movement * speed * Time.deltaTime, ForceMode.VelocityChange);
   }
 
+  private void LateUpdate()
+  {
+    transform.position = rigidbody.transform.position;
+  }
 }
