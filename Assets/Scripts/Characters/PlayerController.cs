@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour {
     leftJoystickInput.y = Input.GetAxisRaw("Vertical");
     Vector3 movement = new Vector3(
       leftJoystickInput.x,
-      leftJoystickInput.y,
-      0f);
+      0f,
+      leftJoystickInput.y);
 
     rigidbody.velocity = Vector3.zero;
     rigidbody.AddForce(movement * speed * Time.deltaTime, ForceMode.VelocityChange);
