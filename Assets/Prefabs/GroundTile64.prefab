@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4151920921541858}
   - component: {fileID: 33458966460569556}
-  - component: {fileID: 64814940648929074}
+  - component: {fileID: 65851557217330712}
   - component: {fileID: 23100978124198392}
   - component: {fileID: 114314392055080346}
   m_Layer: 0
@@ -36,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117690211324722}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.484239, y: -2.853607, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.6148715, y: 0.20576096, z: 1.9912109}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,8 +82,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117690211324722}
   m_Mesh: {fileID: 4300000, guid: c3ff52dfbc21ef9459860c48600fbeae, type: 2}
---- !u!64 &64814940648929074
-MeshCollider:
+--- !u!65 &65851557217330712
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -92,10 +92,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 0.85830903, y: 0.850852, z: 1}
+  m_Center: {x: -0.0037287474, y: 0, z: 0}
 --- !u!114 &114314392055080346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,5 +108,5 @@ MonoBehaviour:
   targetObject: {fileID: 1117690211324722}
   targetCamera: {fileID: 0}
   pixelGridSize: {x: 32, y: 32}
-  gridEnabled: 1
+  gridEnabled: 0
   targetMesh: {fileID: 0}
