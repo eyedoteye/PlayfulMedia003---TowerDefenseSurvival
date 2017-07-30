@@ -6,15 +6,37 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
   public GameObject navigationTarget;
+  public float moveSpeed;
 
-	void Awake()
+  new private Rigidbody rigidbody;
+  private NavMeshAgent navmeshAgent;
+
+	void Start()
   {
-		
+    rigidbody = GetComponent<Rigidbody>();
+    navmeshAgent = GetComponent<NavMeshAgent>();
+    IEnumerator navigateCoroutine = Navigate();
+    StartCoroutine(navigateCoroutine);
 	}
-	
-	void Update()
+
+  void Update()
   {
-    NavMeshAgent agent = GetComponent<NavMeshAgent>();
-    agent.SetDestination(navigationTarget.transform.position);
+    Navigate();
+  }
+
+  private void FixedUpdate()
+  {
+    navmeshAgent.velocity = Vector3.zero;
+    Vector3 moveDirection = Vector3.Normalize(navmeshAgent.desiredVelocity);
+    rigidbody.AddForce(moveDirection * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+  }
+
+  IEnumerator Navigate()
+  {
+    for(;;)
+    {
+      navmeshAgent.SetDestination(navigationTarget.transform.position);
+      yield return new WaitForSeconds(.2f);
+    }
   }
 }

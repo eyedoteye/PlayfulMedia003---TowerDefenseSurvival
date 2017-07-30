@@ -28,11 +28,6 @@ public class PlayerController : MonoBehaviour {
       leftJoystickInput.y);
 
     rigidbody.velocity = Vector3.zero;
-    rigidbody.AddForce(movement * speed * Time.deltaTime, ForceMode.VelocityChange);
-  }
-
-  private void LateUpdate()
-  {
-    transform.position = rigidbody.transform.position;
+    rigidbody.AddForce(movement * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
   }
 }
