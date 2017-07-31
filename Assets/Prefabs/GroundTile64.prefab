@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33458966460569556}
   - component: {fileID: 65851557217330712}
   - component: {fileID: 23100978124198392}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundTile64
   m_TagString: Untagged
   m_Icon: {fileID: 0}
