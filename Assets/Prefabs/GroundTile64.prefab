@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33458966460569556}
   - component: {fileID: 65851557217330712}
   - component: {fileID: 23100978124198392}
+  - component: {fileID: 114653674054336872}
   m_Layer: 8
   m_Name: GroundTile64
   m_TagString: Untagged
@@ -55,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8ae82ca1dd9ca6f4ab66af85b28a7a88, type: 2}
+  - {fileID: 2100000, guid: afa3c842038316f4ba6e3924c5cd7f27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,3 +94,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.85830903, y: 0.850852, z: 1}
   m_Center: {x: -0.0037287474, y: 0, z: 0}
+--- !u!114 &114653674054336872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117690211324722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f69d0a5e9d4ce45ac1a1826536f0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingOffset: {x: 0, y: 0.5, z: 0}
+  attachedBuilding: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
   public float speed = 1f;
+  public GameObject building;
 
   new private Rigidbody rigidbody;
   private LayerMask groundTile_LayerMask;
@@ -33,8 +34,18 @@ public class PlayerController : MonoBehaviour
     if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300f, groundTile_LayerMask))
     {
       GameObject hitObject = hit.transform.gameObject;
-      hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
       cached_LastHitTile = hitObject;
+
+      hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
+      if(Input.GetMouseButtonDown(0))
+      {
+        GroundTileProperties hitGroundTile = hitObject.GetComponent<GroundTileProperties>();
+        hitGroundTile.attachedBuilding = Instantiate(
+          building,
+          hitObject.transform.position + hitGroundTile.buildingOffset,
+          hitObject.transform.rotation,
+          hitObject.transform);
+      }
     }
 	}
 
