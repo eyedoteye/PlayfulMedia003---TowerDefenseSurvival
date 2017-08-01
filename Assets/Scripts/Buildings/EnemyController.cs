@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
 {
   public GameObject navigationTarget;
   public float moveSpeed;
+  public float health;
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
