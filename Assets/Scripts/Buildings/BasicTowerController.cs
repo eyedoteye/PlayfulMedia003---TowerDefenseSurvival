@@ -26,7 +26,7 @@ public class BasicTowerController : MonoBehaviour {
       if(enemy != null) 
         FireArrowAt(enemy.gameObject);
       
-      attackReady = true;
+      attackReady = false;
     }
 	}
 

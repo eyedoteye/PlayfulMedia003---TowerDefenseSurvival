@@ -16,7 +16,7 @@ public class ArrowController : MonoBehaviour
     transform.position += directionTowardsEnemy * speed * Time.fixedDeltaTime;
     transform.rotation = quaternionTowardsEnemy;
 
-    if(directionTowardsEnemy.magnitude < .1f)
+    if(vectorTowardsEnemy.magnitude < .1f)
       Destroy(gameObject);
 	}
 }
