@@ -8,11 +8,23 @@ public class EnemyController : MonoBehaviour
   public GameObject navigationTarget;
   public float moveSpeed;
   public float health;
+  public GameObject spriteOverlay;
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
+  private Material material;
 
   private float stunTime = 0f;
+
+	void Start()
+  {
+    rigidbody = GetComponent<Rigidbody>();
+    navmeshAgent = GetComponent<NavMeshAgent>();
+    material = spriteOverlay.GetComponent<MeshRenderer>().material;
+
+    IEnumerator navigateCoroutine = Navigate();
+    StartCoroutine(navigateCoroutine);
+	}
 
   public void GetHit(float damage)
   {
@@ -20,19 +32,18 @@ public class EnemyController : MonoBehaviour
     stunTime = 0.5f;
   }
 
-	void Start()
-  {
-    rigidbody = GetComponent<Rigidbody>();
-    navmeshAgent = GetComponent<NavMeshAgent>();
-    IEnumerator navigateCoroutine = Navigate();
-    StartCoroutine(navigateCoroutine);
-	}
-
   void Update()
   {
     stunTime -= Time.deltaTime;
     if(stunTime < 0)
+    {
       stunTime = 0;
+      material.mainTextureOffset = new Vector2(0f, 0.75f);
+    }
+    else
+    {
+      material.mainTextureOffset = new Vector2(0.25f, 0.75f);
+    }
 
     Navigate();
   }
