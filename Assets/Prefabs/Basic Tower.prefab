@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65062303014489780}
   - component: {fileID: 23732689837080690}
   - component: {fileID: 208772321799427252}
+  - component: {fileID: 114018752626183188}
   m_Layer: 0
   m_Name: Basic Tower
   m_TagString: Untagged
@@ -94,6 +95,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.81531405, y: 0.81530976, z: 1}
   m_Center: {x: 0.00002515316, y: 0.000007987022, z: 0}
+--- !u!114 &114018752626183188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1806481011115532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7441c949518374840b709248f307f703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  towerRange: 2.63
+  arrowObject: {fileID: 1327611389960906, guid: 265a32e0b3604d242a8230c66123a1cc,
+    type: 2}
+  arrowStartOffset: {x: 0, y: 0, z: 0}
 --- !u!208 &208772321799427252
 NavMeshObstacle:
   m_ObjectHideFlags: 1

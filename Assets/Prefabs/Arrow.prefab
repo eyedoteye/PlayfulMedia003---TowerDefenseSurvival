@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33667688454624718}
   - component: {fileID: 135109600913911806}
   - component: {fileID: 23296888802762038}
+  - component: {fileID: 114224239098752438}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1327611389960906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.01, y: 0.14, z: 9.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,6 +82,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1327611389960906}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114224239098752438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327611389960906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4edf940defc3a84a8f8747ed6e9e65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4.27
+  targetObject: {fileID: 0}
 --- !u!135 &135109600913911806
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -89,7 +103,7 @@ SphereCollider:
   m_GameObject: {fileID: 1327611389960906}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

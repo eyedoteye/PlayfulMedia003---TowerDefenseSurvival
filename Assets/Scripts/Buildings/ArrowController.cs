@@ -17,6 +17,9 @@ public class ArrowController : MonoBehaviour
     transform.rotation = quaternionTowardsEnemy;
 
     if(vectorTowardsEnemy.magnitude < .1f)
+    {
+      targetObject.GetComponent<EnemyController>().GetHit(1f);
       Destroy(gameObject);
+    }
 	}
 }

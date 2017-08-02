@@ -12,6 +12,14 @@ public class EnemyController : MonoBehaviour
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
 
+  private float stunTime = 0f;
+
+  public void GetHit(float damage)
+  {
+    health -= damage;
+    stunTime = 0.5f;
+  }
+
 	void Start()
   {
     rigidbody = GetComponent<Rigidbody>();
@@ -22,14 +30,25 @@ public class EnemyController : MonoBehaviour
 
   void Update()
   {
+    stunTime -= Time.deltaTime;
+    if(stunTime < 0)
+      stunTime = 0;
+
     Navigate();
   }
 
   private void FixedUpdate()
   {
     navmeshAgent.velocity = Vector3.zero;
-    Vector3 moveDirection = Vector3.Normalize(navmeshAgent.desiredVelocity);
-    rigidbody.AddForce(moveDirection * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+    if(stunTime == 0)
+    {
+      Vector3 moveDirection = Vector3.Normalize(navmeshAgent.desiredVelocity);
+      rigidbody.AddForce(moveDirection * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+    } 
+    else
+    {
+      rigidbody.velocity = Vector3.zero;
+    }
   }
 
   IEnumerator Navigate()
