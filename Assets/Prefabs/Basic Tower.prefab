@@ -82,7 +82,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1806481011115532}
-  m_Mesh: {fileID: 4300000, guid: 79b4ae7f57a4aea4facd487f677ba40a, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 00d7768cf6b7eba4892bad62f30b9f09, type: 2}
 --- !u!65 &65062303014489780
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
   towerRange: 2.63
   arrowObject: {fileID: 1327611389960906, guid: 265a32e0b3604d242a8230c66123a1cc,
     type: 2}
-  arrowStartOffset: {x: 0, y: 0, z: 0}
+  arrowStartOffset: {x: 0, y: 1, z: 0}
 --- !u!208 &208772321799427252
 NavMeshObstacle:
   m_ObjectHideFlags: 1
