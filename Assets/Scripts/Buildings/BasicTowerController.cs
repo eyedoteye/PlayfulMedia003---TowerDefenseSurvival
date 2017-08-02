@@ -32,9 +32,9 @@ public class BasicTowerController : MonoBehaviour {
 
   private void FireArrowAt(GameObject enemy)
   {
-    Vector3 arrowStartPosition = transform.position + arrowStartOffset;
-    Vector3 vectorFromArrowToEnemy = enemy.transform.position - arrowStartPosition;
-    Quaternion arrowRotation = Quaternion.LookRotation(vectorFromArrowToEnemy, transform.up);
+    Vector3 vectorFromTowerToEnemy = enemy.transform.position - transform.position;
+    Quaternion arrowRotation = Quaternion.LookRotation(vectorFromTowerToEnemy);
+    Vector3 arrowStartPosition = arrowRotation * arrowStartOffset + transform.position;
     GameObject arrow = Instantiate<GameObject>(arrowObject, arrowStartPosition, arrowRotation);
     arrow.GetComponent<ArrowController>().targetObject = enemy;
   }
