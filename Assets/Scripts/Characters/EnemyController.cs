@@ -8,11 +8,11 @@ public class EnemyController : MonoBehaviour
   public GameObject navigationTarget;
   public float moveSpeed;
   public float health;
-  public GameObject spriteOverlay;
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
   private Material material;
+  private Quaternion orientation;
 
   private float stunTime = 0f;
 
@@ -20,8 +20,10 @@ public class EnemyController : MonoBehaviour
   {
     rigidbody = GetComponent<Rigidbody>();
     navmeshAgent = GetComponent<NavMeshAgent>();
-    material = spriteOverlay.GetComponent<MeshRenderer>().material;
+    material = GetComponent<MeshRenderer>().material;
 
+    orientation = transform.localRotation;
+    navmeshAgent.updateRotation = false;
     IEnumerator navigateCoroutine = Navigate();
     StartCoroutine(navigateCoroutine);
 	}
@@ -46,6 +48,8 @@ public class EnemyController : MonoBehaviour
     }
 
     Navigate();
+    transform.localRotation = orientation;
+    Debug.Log(orientation);
   }
 
   private void FixedUpdate()

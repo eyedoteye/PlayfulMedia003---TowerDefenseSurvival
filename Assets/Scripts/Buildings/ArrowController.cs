@@ -10,7 +10,6 @@ public class ArrowController : MonoBehaviour
 	void FixedUpdate()
   {
     Vector3 vectorTowardsEnemy = targetObject.transform.position - transform.position;
-    vectorTowardsEnemy.y = 0;
     Vector3 directionTowardsEnemy = Vector3.Normalize(vectorTowardsEnemy);
     Quaternion quaternionTowardsEnemy = Quaternion.LookRotation(directionTowardsEnemy, transform.up);
 
