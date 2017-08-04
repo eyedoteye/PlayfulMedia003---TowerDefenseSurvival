@@ -1,17 +1,17 @@
 fileFormatVersion: 2
 guid: 459d983d3edc9d64387ea374c017be46
-timeCreated: 1501878398
+timeCreated: 1501879856
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: PlayerHUDSpritesheet_0
-    21300002: PlayerHUDSpritesheet_1
-    21300004: PlayerHUDSpritesheet_2
-    21300006: PlayerHUDSpritesheet_3
-    21300008: PlayerHUDSpritesheet_4
-    21300010: PlayerHUDSpritesheet_5
-    21300012: PlayerHUDSpritesheet_6
-    21300014: PlayerHUDSpritesheet_7
+    21300000: HealthHUDSpritesheet_0
+    21300002: HealthHUDSpritesheet_1
+    21300004: HealthHUDSpritesheet_2
+    21300006: HealthHUDSpritesheet_3
+    21300008: HealthHUDSpritesheet_4
+    21300010: HealthHUDSpritesheet_5
+    21300012: HealthHUDSpritesheet_6
+    21300014: HealthHUDSpritesheet_7
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -91,7 +91,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_0
+      name: HealthHUDSpritesheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -99,13 +99,13 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_1
+      name: HealthHUDSpritesheet_1
       rect:
         serializedVersion: 2
         x: 0
@@ -113,13 +113,13 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_2
+      name: HealthHUDSpritesheet_2
       rect:
         serializedVersion: 2
         x: 0
@@ -127,13 +127,13 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_3
+      name: HealthHUDSpritesheet_3
       rect:
         serializedVersion: 2
         x: 0
@@ -141,13 +141,13 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_4
+      name: HealthHUDSpritesheet_4
       rect:
         serializedVersion: 2
         x: 0
@@ -155,13 +155,13 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_5
+      name: HealthHUDSpritesheet_5
       rect:
         serializedVersion: 2
         x: 0
@@ -169,13 +169,13 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_6
+      name: HealthHUDSpritesheet_6
       rect:
         serializedVersion: 2
         x: 0
@@ -183,13 +183,13 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerHUDSpritesheet_7
+      name: HealthHUDSpritesheet_7
       rect:
         serializedVersion: 2
         x: 0
@@ -197,7 +197,7 @@ TextureImporter:
         width: 256
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

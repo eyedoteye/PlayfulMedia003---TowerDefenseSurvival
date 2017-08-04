@@ -97,8 +97,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562937312698782}
   m_LocalRotation: {x: -0.21643955, y: -0, z: -0, w: 0.97629607}
-  m_LocalPosition: {x: 0, y: 1.6, z: 9.8600025}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 9.673}
+  m_LocalScale: {x: 1.5625, y: 1.5625, z: 1}
   m_Children:
   - {fileID: 4235009872989248}
   - {fileID: 4602077465015822}
@@ -191,7 +191,7 @@ MonoBehaviour:
   moveSpeed: 5
   health: 5
   attackPosition: {fileID: 4602077465015822}
-  attackRange: 0.1
+  attackRange: 0.8
   isDead: 0
 --- !u!135 &135632961351722656
 SphereCollider:
@@ -262,7 +262,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
