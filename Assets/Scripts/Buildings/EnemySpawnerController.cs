@@ -17,7 +17,10 @@ public class EnemySpawnerController : MonoBehaviour
   {
     for(;;)
     {
-      GameObject enemyInstance = Instantiate<GameObject>(enemyObject, transform.position + enemyObject.transform.position, transform.rotation);
+      GameObject enemyInstance = Instantiate<GameObject>(
+        enemyObject,
+        transform.position + enemyObject.transform.position,
+        enemyObject.transform.rotation);
       EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
       enemyController.navigationTarget = enemyTarget;
 
