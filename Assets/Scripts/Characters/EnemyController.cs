@@ -98,8 +98,12 @@ public class EnemyController : MonoBehaviour
     navmeshAgent.velocity = Vector3.zero;
     if(stunTime == 0)
     {
+      float speedMultiplier = 1f;
+      if(animator.GetBool("isAttacking"))
+        speedMultiplier = 0f;
+
       Vector3 moveDirection = Vector3.Normalize(navmeshAgent.desiredVelocity);
-      rigidbody.AddForce(moveDirection * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+      rigidbody.AddForce(moveDirection * moveSpeed * speedMultiplier * Time.fixedDeltaTime, ForceMode.VelocityChange);
     } 
     else
     {
