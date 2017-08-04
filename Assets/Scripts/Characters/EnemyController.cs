@@ -11,8 +11,8 @@ public class EnemyController : MonoBehaviour
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
-  private Material material;
   private Quaternion orientation;
+  private Animator animator;
 
   private float stunTime = 0f;
 
@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
   {
     rigidbody = GetComponent<Rigidbody>();
     navmeshAgent = GetComponent<NavMeshAgent>();
-    material = GetComponent<MeshRenderer>().material;
+    animator = GetComponent<Animator>();
 
     orientation = transform.localRotation;
     navmeshAgent.updateRotation = false;
@@ -32,6 +32,7 @@ public class EnemyController : MonoBehaviour
   {
     health -= damage;
     stunTime = 0.5f;
+    animator.SetBool("isHit", true);
   }
 
   void Update()
@@ -40,11 +41,7 @@ public class EnemyController : MonoBehaviour
     if(stunTime < 0)
     {
       stunTime = 0;
-      material.mainTextureOffset = new Vector2(0f, 0.75f);
-    }
-    else
-    {
-      material.mainTextureOffset = new Vector2(0.25f, 0.75f);
+      animator.SetBool("isHit", false);
     }
 
     Navigate();
