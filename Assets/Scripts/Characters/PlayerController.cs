@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
   new private Rigidbody rigidbody;
   private LayerMask groundTile_LayerMask;
+  private Animator animator;
 
   private GameObject cached_LastHitTile;
 
@@ -22,11 +23,12 @@ public class PlayerController : MonoBehaviour
 
 	void Start()
   {
-    rigidbody = GetComponentInChildren<Rigidbody>();	
+    rigidbody = GetComponent<Rigidbody>();
+    animator = GetComponent<Animator>();
     groundTile_LayerMask = LayerMask.GetMask("Ground Tile");
 	}
-	
-	void Update()
+
+  void PlaceBuildingUpdate()
   {
     if(cached_LastHitTile != null)
     {
@@ -62,14 +64,34 @@ public class PlayerController : MonoBehaviour
         hitGroundTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
       }
     }
+  }
+	
+	void Update()
+  {
+    PlaceBuildingUpdate();
 	}
+
+  public void ResetAnimationBools()
+  {
+    animator.SetBool("isHit", false);
+  }
+
+  public void GetHit(float damage)
+  {
+    health -= damage;
+    animator.SetBool("isHit", true);
+  }
 
   private void FixedUpdate()
   {
     Vector2 leftJoystickInput;
     leftJoystickInput.x = Input.GetAxisRaw("Horizontal");
     leftJoystickInput.y = Input.GetAxisRaw("Vertical");
-    
+
+    float speedMultiplier = 1f;
+    if(animator.GetBool("isHit"))
+      speedMultiplier = 0.3f;
+
     switch(player_controlMode)
     {
       case Player_ControlMode.Move:
@@ -80,14 +102,12 @@ public class PlayerController : MonoBehaviour
           leftJoystickInput.y);
 
         rigidbody.velocity = Vector3.zero;
-        rigidbody.AddForce(movement * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        rigidbody.AddForce(
+          movement * speed * speedMultiplier * Time.fixedDeltaTime,
+          ForceMode.VelocityChange);
 
       } break;
     }
   }
   
-  public void GetHit(float damage)
-  {
-    health -= damage;
-  }
 }
