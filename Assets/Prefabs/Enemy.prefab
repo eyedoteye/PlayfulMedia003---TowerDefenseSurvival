@@ -100,8 +100,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915871874356526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.098, y: 0.0069999704, z: 0.001999854}
-  m_LocalScale: {x: -0.45, y: 0.7530468, z: 0.87471414}
+  m_LocalPosition: {x: -0.098, y: 0.076, z: -0.187}
+  m_LocalScale: {x: -0.6585055, y: 0.5307048, z: 0.47345594}
   m_Children: []
   m_Father: {fileID: 4959727098769696}
   m_RootOrder: 0
@@ -126,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562937312698782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -9.9, z: 1.5999994}
+  m_LocalPosition: {x: 0, y: -9.925, z: 1.5999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4235009872989248}
@@ -266,7 +266,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.17
-  m_BaseOffset: 0.09
+  m_BaseOffset: 0.07
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!212 &212736808302351834
