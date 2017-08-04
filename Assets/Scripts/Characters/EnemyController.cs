@@ -10,11 +10,10 @@ public class EnemyController : MonoBehaviour
   public float health;
   public Transform attackPosition;
   public float attackRange;
+  public Animator animator;
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
-  private Quaternion orientation;
-  private Animator animator;
 
   public bool isDead = false;
   private float stunTime = 0f;
@@ -23,9 +22,7 @@ public class EnemyController : MonoBehaviour
   {
     rigidbody = GetComponent<Rigidbody>();
     navmeshAgent = GetComponent<NavMeshAgent>();
-    animator = GetComponent<Animator>();
 
-    orientation = transform.localRotation;
     navmeshAgent.updateRotation = false;
     IEnumerator navigateCoroutine = Navigate();
     StartCoroutine(navigateCoroutine);
@@ -85,10 +82,9 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("isAttacking", true);
       }
     }
-    transform.localRotation = orientation;
   }
 
-  void Unexist()
+  public void Unexist()
   {
     Destroy(gameObject);
   }

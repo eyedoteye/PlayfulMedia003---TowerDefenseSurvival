@@ -8,10 +8,10 @@ public class PlayerController : MonoBehaviour
   public float health = 10f;
   public GameObject building;
   public GameObject healthHUD;
+  public Animator animator;
 
   new private Rigidbody rigidbody;
   private LayerMask groundTile_LayerMask;
-  private Animator animator;
 
   private GameObject cached_LastHitTile;
 
@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
 	void Start()
   {
     rigidbody = GetComponent<Rigidbody>();
-    animator = GetComponent<Animator>();
     groundTile_LayerMask = LayerMask.GetMask("Ground Tile");
     healthHUD.GetComponent<Animator>().SetInteger("health", (int)health);
 	}
