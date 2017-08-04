@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3ea0dadda04aaff48994112e3302b98f
-timeCreated: 1501809270
+timeCreated: 1501868931
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,8 @@ TextureImporter:
     21300010: EnemyDeath3
     21300012: EnemyDeath4
     21300014: EnemyBlank
+    21300016: EnemyAttack0
+    21300018: EnemyAttack1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -196,6 +198,34 @@ TextureImporter:
         y: 140
         width: 34
         height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: EnemyAttack0
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: EnemyAttack1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

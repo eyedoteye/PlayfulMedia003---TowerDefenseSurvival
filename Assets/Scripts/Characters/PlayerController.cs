@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
   public float speed = 1f;
+  public float health = 10f;
   public GameObject building;
 
   new private Rigidbody rigidbody;
@@ -83,5 +84,10 @@ public class PlayerController : MonoBehaviour
 
       } break;
     }
+  }
+  
+  public void GetHit(float damage)
+  {
+    health -= damage;
   }
 }

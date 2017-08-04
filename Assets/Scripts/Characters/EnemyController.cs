@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
   public GameObject navigationTarget;
   public float moveSpeed;
   public float health;
+  public Transform attackPosition;
+  public float attackRange;
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
@@ -28,6 +30,24 @@ public class EnemyController : MonoBehaviour
     IEnumerator navigateCoroutine = Navigate();
     StartCoroutine(navigateCoroutine);
 	}
+
+  public void MeleeTarget()
+  {
+    Vector3 targetOffsetFromAttack = navigationTarget.transform.position - attackPosition.transform.position;
+    targetOffsetFromAttack.y = 0;
+    if(targetOffsetFromAttack.magnitude < attackRange)
+    {
+      PlayerController playerController = navigationTarget.GetComponent<PlayerController>();
+      if(playerController != null)
+        playerController.GetHit(1f);
+    }
+  }
+
+  public void ResetAnimationBools()
+  {
+    animator.SetBool("isHit", false);
+    animator.SetBool("isAttacking", false);
+  }
 
   public void GetHit(float damage)
   {
@@ -57,6 +77,13 @@ public class EnemyController : MonoBehaviour
       }
 
       Navigate();
+
+      Vector3 targetOffset = navigationTarget.transform.position - transform.position;
+      targetOffset.y = 0;
+      if(targetOffset.magnitude < attackRange)
+      {
+        animator.SetBool("isAttacking", true);
+      }
     }
     transform.localRotation = orientation;
   }
