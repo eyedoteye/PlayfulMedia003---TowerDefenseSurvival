@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
   private Quaternion orientation;
   private Animator animator;
 
+  public bool isDead = false;
   private float stunTime = 0f;
 
 	void Start()
@@ -32,21 +33,37 @@ public class EnemyController : MonoBehaviour
   {
     health -= damage;
     stunTime = 0.5f;
-    animator.SetBool("isHit", true);
+    if(health <= 0)
+    {
+      isDead = true;
+      animator.SetBool("isDead", true);
+      animator.SetBool("isHit", false);
+    }
+    else
+    {
+      animator.SetBool("isHit", true);
+    }
   }
 
   void Update()
   {
-    stunTime -= Time.deltaTime;
-    if(stunTime < 0)
+    if(!isDead)
     {
-      stunTime = 0;
-      animator.SetBool("isHit", false);
-    }
+      stunTime -= Time.deltaTime;
+      if(stunTime < 0)
+      {
+        stunTime = 0;
+        animator.SetBool("isHit", false);
+      }
 
-    Navigate();
+      Navigate();
+    }
     transform.localRotation = orientation;
-    Debug.Log(orientation);
+  }
+
+  void Unexist()
+  {
+    Destroy(gameObject);
   }
 
   private void FixedUpdate()

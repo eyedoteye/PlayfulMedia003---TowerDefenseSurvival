@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3ea0dadda04aaff48994112e3302b98f
-timeCreated: 1501797562
+timeCreated: 1501809270
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,7 @@ TextureImporter:
     21300008: EnemyDeath2
     21300010: EnemyDeath3
     21300012: EnemyDeath4
+    21300014: EnemyBlank
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -183,6 +184,20 @@ TextureImporter:
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: EnemyBlank
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 140
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
