@@ -8,6 +8,7 @@ public class BasicTowerController : MonoBehaviour {
   public float towerRange;
   public GameObject arrowObject;
   public Vector3 arrowStartOffset;
+  public int powerCost;
 
 
   private bool attackReady = false;

@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
   public GameObject building;
   public GameObject healthHUD;
   public Animator animator;
+  public PowerHeadController powerHead;
 
   new private Rigidbody rigidbody;
   private LayerMask groundTile_LayerMask;
@@ -46,7 +47,8 @@ public class PlayerController : MonoBehaviour
       cached_LastHitTile = hitObject;
 
       GroundTileProperties hitGroundTile = hitObject.GetComponent<GroundTileProperties>();
-      if(hitGroundTile.attachedBuilding == null)
+      int powerCost = building.GetComponent<BasicTowerController>().powerCost;
+      if(powerHead.availablePower > powerCost && hitGroundTile.attachedBuilding == null)
       {
         hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
 
@@ -57,12 +59,15 @@ public class PlayerController : MonoBehaviour
             hitObject.transform.position + hitGroundTile.buildingOffset,
             hitObject.transform.rotation,
             hitObject.transform);
+          powerHead.availablePower -= powerCost;
         }
       }
       else
       {
         hitObject.GetComponent<MeshRenderer>().material.color = Color.red;
-        hitGroundTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
+
+        if(hitGroundTile.attachedBuilding != null)
+          hitGroundTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
       }
     }
   }
