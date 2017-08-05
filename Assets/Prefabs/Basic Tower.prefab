@@ -113,6 +113,7 @@ MonoBehaviour:
   arrowObject: {fileID: 1327611389960906, guid: 265a32e0b3604d242a8230c66123a1cc,
     type: 2}
   arrowStartOffset: {x: 0, y: 1, z: 0.1}
+  powerCost: 2
 --- !u!208 &208772321799427252
 NavMeshObstacle:
   m_ObjectHideFlags: 1

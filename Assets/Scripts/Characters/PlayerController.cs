@@ -57,8 +57,7 @@ public class PlayerController : MonoBehaviour
           hitGroundTile.attachedBuilding = Instantiate(
             building,
             hitObject.transform.position + hitGroundTile.buildingOffset,
-            hitObject.transform.rotation,
-            hitObject.transform);
+            hitObject.transform.rotation);
           powerHead.availablePower -= powerCost;
         }
       }
