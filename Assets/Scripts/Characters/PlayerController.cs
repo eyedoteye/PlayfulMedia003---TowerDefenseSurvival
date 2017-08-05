@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
       GroundTileProperties hitGroundTile = hitObject.GetComponent<GroundTileProperties>();
       int powerCost = building.GetComponent<BasicTowerController>().powerCost;
-      if(powerHead.availablePower > powerCost && hitGroundTile.attachedBuilding == null)
+      if(powerHead.availablePower >= powerCost && hitGroundTile.attachedBuilding == null)
       {
         hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
 
