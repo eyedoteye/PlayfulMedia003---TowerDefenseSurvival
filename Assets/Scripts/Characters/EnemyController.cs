@@ -92,6 +92,7 @@ public class EnemyController : MonoBehaviour
   private void FixedUpdate()
   {
     navmeshAgent.velocity = Vector3.zero;
+    rigidbody.velocity = Vector3.zero;
     if(stunTime == 0)
     {
       float speedMultiplier = 1f;
