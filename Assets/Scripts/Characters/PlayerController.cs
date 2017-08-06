@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
   public GameObject healthHUD;
   public Animator animator;
   public PowerHeadController powerHead;
+  public SpriteRenderer spriteRenderer;
 
   new private Rigidbody rigidbody;
   private LayerMask groundTile_LayerMask;
@@ -74,6 +75,10 @@ public class PlayerController : MonoBehaviour
 	void Update()
   {
     PlaceBuildingUpdate();
+    if(rigidbody.velocity.x < 0)
+      spriteRenderer.flipX = true;
+    else if(rigidbody.velocity.x > 0)
+      spriteRenderer.flipX = false;
 	}
 
   public void ResetAnimationBools()

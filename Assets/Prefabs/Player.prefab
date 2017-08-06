@@ -193,6 +193,7 @@ MonoBehaviour:
   healthHUD: {fileID: 0}
   animator: {fileID: 95041780642657720}
   powerHead: {fileID: 0}
+  spriteRenderer: {fileID: 212891737786461780}
 --- !u!114 &114273964590620014
 MonoBehaviour:
   m_ObjectHideFlags: 1

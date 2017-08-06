@@ -10,7 +10,9 @@ public class EnemyController : MonoBehaviour
   public float health;
   public Transform attackPosition;
   public float attackRange;
+  public float attackRangeBeforeMiss;
   public Animator animator;
+  public SpriteRenderer spriteRenderer;
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
@@ -32,7 +34,7 @@ public class EnemyController : MonoBehaviour
   {
     Vector3 targetOffsetFromAttack = navigationTarget.transform.position - attackPosition.transform.position;
     targetOffsetFromAttack.y = 0;
-    if(targetOffsetFromAttack.magnitude < attackRange)
+    if(targetOffsetFromAttack.magnitude < attackRangeBeforeMiss)
     {
       PlayerController playerController = navigationTarget.GetComponent<PlayerController>();
       if(playerController != null)
@@ -81,6 +83,10 @@ public class EnemyController : MonoBehaviour
       {
         animator.SetBool("isAttacking", true);
       }
+      if(rigidbody.velocity.x < 0)
+        spriteRenderer.flipX = true;
+      else if(rigidbody.velocity.x > 0)
+        spriteRenderer.flipX = false;
     }
   }
 

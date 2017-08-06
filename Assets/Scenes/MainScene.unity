@@ -1307,6 +1307,16 @@ Prefab:
       propertyPath: m_Height
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 114129069659240676, guid: 34b03a6df0a8c2440985b7f9cfa38728,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 212736808302351834, guid: 34b03a6df0a8c2440985b7f9cfa38728,
+        type: 2}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34b03a6df0a8c2440985b7f9cfa38728, type: 2}
   m_IsPrefabParent: 0

@@ -113,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755051572889996}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.077, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4959727098769696}
@@ -230,11 +230,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navigationTarget: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 140
   health: 5
   attackPosition: {fileID: 4602077465015822}
-  attackRange: 0.8
+  attackRange: 0.4
+  attackRangeBeforeMiss: 0.6
   animator: {fileID: 95964705989304954}
+  spriteRenderer: {fileID: 212736808302351834}
   isDead: 0
 --- !u!135 &135632961351722656
 SphereCollider:
