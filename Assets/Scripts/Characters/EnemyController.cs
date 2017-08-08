@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
   public float attackRangeBeforeMiss;
   public Animator animator;
   public SpriteRenderer spriteRenderer;
+  public GameObject gobBase;
 
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
@@ -38,7 +39,7 @@ public class EnemyController : MonoBehaviour
     {
       PlayerController playerController = navigationTarget.GetComponent<PlayerController>();
       if(playerController != null)
-        playerController.GetHit(1f);
+        playerController.GetHit(1);
     }
   }
 
@@ -92,6 +93,11 @@ public class EnemyController : MonoBehaviour
 
   public void Unexist()
   {
+    GameObject gob = Instantiate(gobBase);
+    Vector3 gobPosition = transform.position;
+    gobPosition.y = gobBase.transform.position.y;
+    gob.transform.position = gobPosition;
+
     Destroy(gameObject);
   }
 

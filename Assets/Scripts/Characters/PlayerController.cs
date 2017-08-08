@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
   public float speed = 1f;
-  public float health = 10f;
+  public int health = 10;
+  public int gobs = 0;
   public GameObject building;
   public GameObject healthHUD;
   public Animator animator;
@@ -48,8 +49,11 @@ public class PlayerController : MonoBehaviour
       cached_LastHitTile = hitObject;
 
       GroundTileProperties hitGroundTile = hitObject.GetComponent<GroundTileProperties>();
-      int powerCost = building.GetComponent<BasicTowerController>().powerCost;
-      if(powerHead.availablePower >= powerCost && hitGroundTile.attachedBuilding == null)
+      BasicTowerController basicTowerController = building.GetComponent<BasicTowerController>();
+      if(
+        gobs >= basicTowerController.gobCost
+        && powerHead.availablePower >= basicTowerController.powerCost 
+        && hitGroundTile.attachedBuilding == null)
       {
         hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
 
@@ -59,7 +63,8 @@ public class PlayerController : MonoBehaviour
             building,
             hitObject.transform.position + hitGroundTile.buildingOffset,
             hitObject.transform.rotation);
-          powerHead.availablePower -= powerCost;
+          powerHead.availablePower -= basicTowerController.powerCost;
+          gobs -= basicTowerController.gobCost;
         }
       }
       else
@@ -86,7 +91,7 @@ public class PlayerController : MonoBehaviour
     animator.SetBool("isHit", false);
   }
 
-  public void GetHit(float damage)
+  public void GetHit(int damage)
   {
     health -= damage;
     animator.SetBool("isHit", true);

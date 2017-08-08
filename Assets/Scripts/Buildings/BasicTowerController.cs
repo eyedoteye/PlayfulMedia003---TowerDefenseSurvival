@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicTowerController : MonoBehaviour {
-
+public class BasicTowerController : MonoBehaviour
+{
   public LayerMask targetLayer;
   public float towerRange;
   public GameObject arrowObject;
   public Vector3 arrowStartOffset;
   public int powerCost;
-
+  public int gobCost;
 
   private bool attackReady = false;
 
