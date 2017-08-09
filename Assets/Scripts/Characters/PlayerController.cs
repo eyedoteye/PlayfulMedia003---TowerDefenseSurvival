@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
   public int health = 10;
   public int gobs = 0;
   public GameObject building;
-  public GameObject healthHUD;
   public Animator animator;
   public PowerHeadController powerHead;
   public SpriteRenderer spriteRenderer;
@@ -29,7 +28,6 @@ public class PlayerController : MonoBehaviour
   {
     rigidbody = GetComponent<Rigidbody>();
     groundTile_LayerMask = LayerMask.GetMask("Ground Tile");
-    healthHUD.GetComponent<Animator>().SetInteger("health", (int)health);
 	}
 
   void PlaceBuildingUpdate()
@@ -95,7 +93,6 @@ public class PlayerController : MonoBehaviour
   {
     health -= damage;
     animator.SetBool("isHit", true);
-    healthHUD.GetComponent<Animator>().SetInteger("health", (int)health);
   }
 
   private void FixedUpdate()

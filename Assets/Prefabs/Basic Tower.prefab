@@ -114,6 +114,7 @@ MonoBehaviour:
     type: 2}
   arrowStartOffset: {x: 0, y: 1, z: 0.1}
   powerCost: 2
+  gobCost: 1
 --- !u!208 &208772321799427252
 NavMeshObstacle:
   m_ObjectHideFlags: 1

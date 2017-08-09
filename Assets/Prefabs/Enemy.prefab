@@ -237,6 +237,7 @@ MonoBehaviour:
   attackRangeBeforeMiss: 0.6
   animator: {fileID: 95964705989304954}
   spriteRenderer: {fileID: 212736808302351834}
+  gobBase: {fileID: 1207879269636160, guid: e341cbfcd15d92247bad0de8870d87d6, type: 2}
   isDead: 0
 --- !u!135 &135632961351722656
 SphereCollider:

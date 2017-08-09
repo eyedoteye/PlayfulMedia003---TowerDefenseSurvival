@@ -1,34 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnergyHUDController : MonoBehaviour
 {
   public int blipMax;
   public Sprite[] blipSprites;
   public PowerHeadController powerHeadController;
+  public GameObject energyBlip_Base;
 
   private GameObject[] blips;
   private int blipCount;
 
   private void Start()
   {
-    GetComponent<SpriteRenderer>().enabled = false;
+    GetComponent<Image>().enabled = false;
     blips = new GameObject[blipMax];
     for(int blipIndex = 0; blipIndex < blipMax; ++blipIndex)
     {
-      blips[blipIndex] = new GameObject();
+      blips[blipIndex] = Instantiate<GameObject>(energyBlip_Base);
       blips[blipIndex].name = "Energy Blip " + blipIndex;
       blips[blipIndex].layer = LayerMask.NameToLayer("UI");
-      blips[blipIndex].transform.parent = transform;
+      blips[blipIndex].transform.SetParent(transform, false);
       blips[blipIndex].transform.position = transform.position;
-      blips[blipIndex].transform.localPosition = new Vector3(
-        blipIndex * -0.18f,
+      blips[blipIndex].GetComponent<RectTransform>().anchoredPosition3D = new Vector3(
+        blipIndex * -16,
         0f,
         0f);
       blips[blipIndex].transform.localRotation = Quaternion.identity;
-      blips[blipIndex].transform.localScale = Vector3.one;
-      blips[blipIndex].AddComponent<SpriteRenderer>().enabled = false;
+      blips[blipIndex].GetComponent<Image>().enabled = false;
     }
     blipCount = 0;
   }
@@ -60,7 +61,7 @@ public class EnergyHUDController : MonoBehaviour
 
   private void AddBlip()
   {
-    SpriteRenderer spriteRenderer = blips[blipCount].GetComponent<SpriteRenderer>();
+    Image spriteRenderer = blips[blipCount].GetComponent<Image>();
     
     switch((int)(Random.value * 3))
     {
@@ -85,7 +86,7 @@ public class EnergyHUDController : MonoBehaviour
   private void RemoveBlip()
   {
     blipCount--;
-    blips[blipCount].GetComponent<SpriteRenderer>().enabled = false;
+    blips[blipCount].GetComponent<Image>().enabled = false;
   }
 
 

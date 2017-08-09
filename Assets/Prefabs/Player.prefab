@@ -188,7 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  health: 7
+  health: 10
+  gobs: 3
   building: {fileID: 1806481011115532, guid: 63cd535d4a0afdf4d806a2115369bce9, type: 2}
   healthHUD: {fileID: 0}
   animator: {fileID: 95041780642657720}
