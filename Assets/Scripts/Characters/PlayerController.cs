@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
   public Animator animator;
   public PowerHeadController powerHead;
   public SpriteRenderer spriteRenderer;
+  public MouseController mouseController;
 
   new private Rigidbody rigidbody;
   private LayerMask groundTile_LayerMask;
@@ -40,43 +41,46 @@ public class PlayerController : MonoBehaviour
         attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.white;
     }
 
-    RaycastHit hit;
-    if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300f, groundTile_LayerMask))
+    if(!mouseController.mouseInUse)
     {
-      GameObject hitObject = hit.transform.gameObject;
-      cached_LastHitTile = hitObject;
-
-      GroundTileProperties hitGroundTile = hitObject.GetComponent<GroundTileProperties>();
-      BasicTowerController basicTowerController = building.GetComponent<BasicTowerController>();
-      if(
-        gobs >= basicTowerController.gobCost
-        && powerHead.availablePower >= basicTowerController.powerCost 
-        && hitGroundTile.attachedBuilding == null)
+      RaycastHit hit;
+      if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300f, groundTile_LayerMask))
       {
-        hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
-        if(Input.GetMouseButtonDown(0))
+        GameObject hitObject = hit.transform.gameObject;
+        cached_LastHitTile = hitObject;
+
+        GroundTileProperties hitGroundTile = hitObject.GetComponent<GroundTileProperties>();
+        BasicTowerController basicTowerController = building.GetComponent<BasicTowerController>();
+        if(
+          gobs >= basicTowerController.gobCost
+          && powerHead.availablePower >= basicTowerController.powerCost
+          && hitGroundTile.attachedBuilding == null)
         {
-          hitGroundTile.attachedBuilding = Instantiate(
-            building,
-            hitObject.transform.position + hitGroundTile.buildingOffset,
-            hitObject.transform.rotation);
-          powerHead.availablePower -= basicTowerController.powerCost;
-          gobs -= basicTowerController.gobCost;
+          hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
+          if(Input.GetMouseButtonDown(0))
+          {
+            hitGroundTile.attachedBuilding = Instantiate(
+              building,
+              hitObject.transform.position + hitGroundTile.buildingOffset,
+              hitObject.transform.rotation);
+            powerHead.availablePower -= basicTowerController.powerCost;
+            gobs -= basicTowerController.gobCost;
+          }
         }
-      }
-      else
-      {
-        hitObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        else
+        {
+          hitObject.GetComponent<MeshRenderer>().material.color = Color.red;
 
-        if(hitGroundTile.attachedBuilding != null)
-          hitGroundTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
-        
+          if(hitGroundTile.attachedBuilding != null)
+            hitGroundTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
+
           if(Input.GetMouseButtonDown(1))
           {
             Destroy(hitGroundTile.attachedBuilding);
             hitGroundTile.attachedBuilding = null;
             powerHead.availablePower += basicTowerController.powerCost;
           }
+        }
       }
     }
   }
