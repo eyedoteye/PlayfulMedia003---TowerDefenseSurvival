@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
         && hitGroundTile.attachedBuilding == null)
       {
         hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
-
         if(Input.GetMouseButtonDown(0))
         {
           hitGroundTile.attachedBuilding = Instantiate(
@@ -71,6 +70,13 @@ public class PlayerController : MonoBehaviour
 
         if(hitGroundTile.attachedBuilding != null)
           hitGroundTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
+        
+          if(Input.GetMouseButtonDown(1))
+          {
+            Destroy(hitGroundTile.attachedBuilding);
+            hitGroundTile.attachedBuilding = null;
+            powerHead.availablePower += basicTowerController.powerCost;
+          }
       }
     }
   }
