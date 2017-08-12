@@ -12,6 +12,7 @@ public class PowerHeadController : MonoBehaviour
 
   public void Start()
   {
+    upgradeMenu.enabled = false;
   }
 
   void Update()
