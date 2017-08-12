@@ -882,7 +882,6 @@ GameObject:
   - component: {fileID: 234010240}
   - component: {fileID: 234010239}
   - component: {fileID: 234010244}
-  - component: {fileID: 234010245}
   m_Layer: 5
   m_Name: GameoverScreen
   m_TagString: Untagged
@@ -901,6 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e35109eac37aa4a81416ff1f4a5845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionSelector: {fileID: 1241431701}
 --- !u!114 &234010240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,17 +998,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &234010245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 234010238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2e35109eac37aa4a81416ff1f4a5845, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &240742165
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,6 +2028,7 @@ GameObject:
   - component: {fileID: 529340757}
   - component: {fileID: 529340759}
   - component: {fileID: 529340758}
+  - component: {fileID: 529340760}
   m_Layer: 5
   m_Name: QuitText
   m_TagString: Untagged
@@ -2103,6 +2093,36 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 529340756}
+--- !u!114 &529340760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 529340756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 234010239}
+          m_MethodName: SelectOption
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 529340756}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1001 &535499550
 Prefab:
   m_ObjectHideFlags: 0
@@ -3470,6 +3490,10 @@ Prefab:
       propertyPath: gameoverScreen
       value: 
       objectReference: {fileID: 234010238}
+    - target: {fileID: 1833606546704814, guid: bce21020136ebb145a046afeb3a334ca, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bce21020136ebb145a046afeb3a334ca, type: 2}
   m_IsPrefabParent: 0
@@ -3603,6 +3627,7 @@ GameObject:
   - component: {fileID: 892966781}
   - component: {fileID: 892966783}
   - component: {fileID: 892966782}
+  - component: {fileID: 892966784}
   m_Layer: 5
   m_Name: RetryText
   m_TagString: Untagged
@@ -3667,6 +3692,36 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 892966780}
+--- !u!114 &892966784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 892966780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 234010239}
+          m_MethodName: SelectOption
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 892966780}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!4 &938077182 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4862816691412650, guid: 437e83f6f6de7164380fe14755513bf3,
