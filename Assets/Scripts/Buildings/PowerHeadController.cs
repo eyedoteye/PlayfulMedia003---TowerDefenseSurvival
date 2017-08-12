@@ -32,14 +32,22 @@ public class PowerHeadController : MonoBehaviour
           Debug.Log("enable");
           upgradeMenu.enabled = true;
           mouseController.mouseInUse = true;
+          mouseController.controlMode = MouseController.ControlMode.UpgradeMenu;
         }
       }
     }
     else
     {
-      Debug.Log("disable");
-      upgradeMenu.enabled = false;
-      mouseController.mouseInUse = false;
+      if(
+        Input.GetMouseButtonUp(0)
+        && mouseController.controlMode == MouseController.ControlMode.UpgradeMenu)
+      {
+        Debug.Log("disable");
+        upgradeMenu.GetComponent<UpgradeMenuController>().confirmUpgrade();
+        upgradeMenu.enabled = false;
+        mouseController.mouseInUse = false;
+        mouseController.controlMode = MouseController.ControlMode.None;
+      }
     }
   }
 }
