@@ -37,6 +37,6 @@ public class GameoverScreenController : MonoBehaviour
 
   public void EndGame()
   {
-    Debug.Log("Game End");
+    SceneManager.LoadScene("StartScreen");
   }
 }
