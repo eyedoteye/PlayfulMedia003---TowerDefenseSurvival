@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameoverScreenController : MonoBehaviour
 {
@@ -29,7 +30,13 @@ public class GameoverScreenController : MonoBehaviour
       option.GetComponent<RectTransform>().position;
   }
 
-  private void Update()
+  public void RestartGame()
   {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  }
+
+  public void EndGame()
+  {
+    Debug.Log("Game End");
   }
 }
