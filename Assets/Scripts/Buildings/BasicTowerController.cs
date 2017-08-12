@@ -10,6 +10,9 @@ public class BasicTowerController : MonoBehaviour
   public Vector3 arrowStartOffset;
   public int powerCost;
   public int gobCost;
+  public float damage = .9f;
+  public float attackCooldown = 3f;
+  public Color color = Color.white;
 
   private bool attackReady = false;
 
@@ -30,6 +33,15 @@ public class BasicTowerController : MonoBehaviour
       attackReady = false;
     }
 	}
+  
+  public void Upgrade()
+  {
+    damage += .1f;
+    if(attackCooldown > .6f)
+      attackCooldown -= .1f;
+    color.g = color.g * .6f;
+    color.b = color.b * .6f;
+  }
 
   private void FireArrowAt(GameObject enemy)
   {
@@ -38,6 +50,7 @@ public class BasicTowerController : MonoBehaviour
     Vector3 arrowStartPosition = arrowRotation * arrowStartOffset + transform.position;
     GameObject arrow = Instantiate<GameObject>(arrowObject, arrowStartPosition, arrowRotation);
     arrow.GetComponent<ArrowController>().targetObject = enemy;
+    arrow.GetComponent<ArrowController>().damage = damage;
   }
 
   IEnumerator AttackCooldown()
@@ -48,7 +61,7 @@ public class BasicTowerController : MonoBehaviour
         yield return null;
       else
       {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(attackCooldown);
         attackReady = true;
       }
     }

@@ -6,6 +6,7 @@ public class ArrowController : MonoBehaviour
 {
   public float speed;
   public GameObject targetObject;
+  public float damage = 0f;
 	
 	void FixedUpdate()
   {
@@ -18,7 +19,7 @@ public class ArrowController : MonoBehaviour
 
     if(vectorTowardsEnemy.magnitude < .1f)
     {
-      targetObject.GetComponent<EnemyController>().GetHit(1f);
+      targetObject.GetComponent<EnemyController>().GetHit(damage);
       Destroy(gameObject);
     }
 	}

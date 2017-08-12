@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
       cached_LastHitTile.GetComponent<MeshRenderer>().material.color = Color.white;
       GameObject attachedBuilding = cached_LastHitTile.GetComponent<GroundTileProperties>().attachedBuilding;
       if(attachedBuilding != null)
-        attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.white;
+        attachedBuilding.GetComponent<MeshRenderer>().material.color =
+          attachedBuilding.GetComponent<BasicTowerController>().color;
     }
 
     if(!mouseController.mouseInUse)
@@ -64,6 +65,7 @@ public class PlayerController : MonoBehaviour
               building,
               hitObject.transform.position + hitGroundTile.buildingOffset,
               hitObject.transform.rotation);
+            hitGroundTile.attachedBuilding.SetActive(true);
             powerHead.availablePower -= basicTowerController.powerCost;
             gobs -= basicTowerController.gobCost;
           }
