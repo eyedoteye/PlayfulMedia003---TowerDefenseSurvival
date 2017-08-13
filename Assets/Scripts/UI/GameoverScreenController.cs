@@ -32,7 +32,7 @@ public class GameoverScreenController : MonoBehaviour
 
   public void RestartGame()
   {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    SceneManager.LoadScene("MainScene");
   }
 
   public void EndGame()

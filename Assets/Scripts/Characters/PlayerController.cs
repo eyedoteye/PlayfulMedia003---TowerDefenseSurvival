@@ -106,12 +106,9 @@ public class PlayerController : MonoBehaviour
   {
     health -= damage;
     animator.SetBool("isHit", true);
-    //Todo: Replace with superior transition
+
     if(health <= 0)
-    {
       gameoverScreen.SetActive(true);
-      gameObject.SetActive(false);
-    }
   }
 
   private void FixedUpdate()
