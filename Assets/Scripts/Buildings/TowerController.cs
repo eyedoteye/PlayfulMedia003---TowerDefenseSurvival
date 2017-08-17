@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerController : MonoBehaviour
+public class
+TowerController : MonoBehaviour
 {
-  public LayerMask targetLayer;
-  public GameObject arrowObject;
-  public Vector3 arrowStartOffset;
-
-  public float towerRange;
   public int powerCost;
   public int gobCost;
+  public float towerRange;
   public float damage = .9f;
   public float attackCooldown = 3f;
   public Color color = Color.white;
 
-  private bool attackReady = false;
+  public LayerMask targetLayer;
+  public GameObject arrowObject;
+  public Vector3 arrowStartOffset;
 
-	void Start()
+  private bool attackReady = true;
+
+	private void
+  Start()
   {
     IEnumerator attackCooldownCoroutine = AttackCooldown();
     StartCoroutine(attackCooldownCoroutine);
 	}
 	
-	void Update()
+	private void
+  Update()
   {
     if(attackReady)
     {
@@ -35,18 +38,19 @@ public class TowerController : MonoBehaviour
     }
 	}
   
-  public void Upgrade()
+  public void
+  Upgrade()
   {
-    damage += .1f;
     if(attackCooldown > .6f)
       attackCooldown -= .1f;
-    color.g = color.g * .6f;
-    color.b = color.b * .6f;
+
+    color.b = color.b * .808f;
 
     GetComponent<MeshRenderer>().material.color = color;
   }
 
-  public void matchUpgrade(TowerController towerController_base)
+  public void
+  MatchUpgrade(TowerController towerController_base)
   {
     towerRange = towerController_base.towerRange;
     powerCost = towerController_base.powerCost;
@@ -58,19 +62,23 @@ public class TowerController : MonoBehaviour
     GetComponent<MeshRenderer>().material.color = color;
   }
 
-  private void FireArrowAt(GameObject enemy)
+  private void
+  FireArrowAt(GameObject enemy)
   {
     Vector3 vectorFromTowerToEnemy = enemy.transform.position - transform.position;
     Quaternion arrowRotation = Quaternion.LookRotation(vectorFromTowerToEnemy);
     Vector3 arrowStartPosition = arrowRotation * arrowStartOffset + transform.position;
+
     GameObject arrow = Instantiate<GameObject>(arrowObject, arrowStartPosition, arrowRotation);
+
     arrow.GetComponent<ArrowController>().attackTarget = enemy;
     arrow.GetComponent<ArrowController>().damage = damage;
-    arrow.GetComponent<ArrowController>().startPosition = arrowStartPosition;
+
     arrow.SetActive(true);
   }
 
-  IEnumerator AttackCooldown()
+  private IEnumerator
+  AttackCooldown()
   {
     for(;;)
     {
@@ -84,7 +92,8 @@ public class TowerController : MonoBehaviour
     }
   }
 
-  private EnemyController GetEnemyWithLowestHealth()
+  private EnemyController
+  GetEnemyWithLowestHealth()
   {
     Collider[] collisionsWithTargetsInRange = Physics.OverlapCapsule(
       this.transform.position,

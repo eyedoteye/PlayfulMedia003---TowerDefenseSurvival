@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorldController : MonoBehaviour
+public class
+WorldController : MonoBehaviour
 {
   public int columns;
   public int rows;
@@ -101,7 +102,7 @@ public class WorldController : MonoBehaviour
   }
 
   public void
-  UpdateAllTowers(TowerController towerController_base)
+  UpdateAllTowers(TowerController baseTowerController)
   {
     for(
       int columnIndex = 0;
@@ -113,11 +114,13 @@ public class WorldController : MonoBehaviour
         rowIndex < rows;
         ++rowIndex)
       {
-        GameObject tower = tileControllers[columnIndex, rowIndex].attachedBuilding;
+        TileController tileController = tileControllers[columnIndex, rowIndex];
+        if(tileController == null)
+          continue;
+
+        GameObject tower = tileController.attachedBuilding;
         if(tower != null)
-        {
-          tower.GetComponent<TowerController>().matchUpgrade(towerController_base);
-        }
+          tower.GetComponent<TowerController>().MatchUpgrade(baseTowerController);
       }
     }
   }

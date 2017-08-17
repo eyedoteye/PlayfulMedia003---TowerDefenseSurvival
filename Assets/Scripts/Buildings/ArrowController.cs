@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowController : MonoBehaviour
+public class
+ArrowController : MonoBehaviour
 {
   public float damage = 0f;
   public float timeToHit = 5f;
