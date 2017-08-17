@@ -7,8 +7,8 @@ public class WorldController : MonoBehaviour
   public int columns;
   public int rows;
 
-  public GameObject tile_base;
-  public LayerMask tile_layerMask;
+  public GameObject baseTile;
+  public LayerMask tileLayerMask;
 
   private TileController[,] tileControllers;
 
@@ -27,18 +27,18 @@ public class WorldController : MonoBehaviour
         rowIndex < rows;
         ++rowIndex)
       {
-
-        TileController groundTile_properties = CreateTile(
-          columnIndex - columns / 2,
-          rowIndex - rows / 2);
-
-        tileControllers[columnIndex, rowIndex] = groundTile_properties;
-
         // Skip middle 4 tiles,
         // perhaps later develop a method that makes level design easier?
         if (rowIndex == rows / 2 || rowIndex == rows / 2 - 1)
           if (columnIndex == columns / 2 || columnIndex == columns / 2 - 1)
-            groundTile_properties.blocked = true;
+            continue;
+
+        TileController groundTileController = CreateTile(
+          columnIndex - columns / 2,
+          rowIndex - rows / 2);
+
+        tileControllers[columnIndex, rowIndex] = groundTileController;
+
       }
     }
 	}
@@ -48,7 +48,7 @@ public class WorldController : MonoBehaviour
   {
     Vector3 tilePosition = new Vector3(column + 0.5f, 0f, row + 0.5f);
 
-    GameObject tile = Instantiate<GameObject>(tile_base);
+    GameObject tile = Instantiate<GameObject>(baseTile);
     tile.transform.SetParent(transform, false);
     tile.transform.position = tilePosition;
     tile.SetActive(true);
@@ -63,7 +63,7 @@ public class WorldController : MonoBehaviour
   }
 
   public TileController
-  get_groundTile_from_mouseCoords(
+  GetGroundTile(
     Camera camera,
     Vector2 mouseCoords)
   {
@@ -72,7 +72,7 @@ public class WorldController : MonoBehaviour
       camera.ScreenPointToRay(mouseCoords),
       out tileHit,
       Mathf.Infinity,
-      tile_layerMask);
+      tileLayerMask);
 
     if(!tile_is_hit)
       return null;
@@ -81,7 +81,7 @@ public class WorldController : MonoBehaviour
   }
 
   public void
-  create_tower_on_tile(
+  CreateTower(
     GameObject tower_base,
     TileController tileController)
   {
@@ -94,14 +94,14 @@ public class WorldController : MonoBehaviour
   }
 
   public void
-  remove_tower_on_tile(TileController tileController)
+  RemoveTower(TileController tileController)
   {
     Destroy(tileController.attachedBuilding);
     tileController.attachedBuilding = null;
   }
 
   public void
-  update_all_towers(TowerController towerController_base)
+  UpdateAllTowers(TowerController towerController_base)
   {
     for(
       int columnIndex = 0;

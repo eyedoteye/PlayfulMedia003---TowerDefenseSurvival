@@ -4,23 +4,47 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-  public float speed;
-  public GameObject targetObject;
   public float damage = 0f;
+  public float timeToHit = 5f;
 	
-	void FixedUpdate()
+  public GameObject attackTarget;
+  
+  private Vector3 startPosition;
+  private float timePassed;
+  private Vector3 targetPosition;
+
+  private void
+  Awake()
   {
-    Vector3 vectorTowardsEnemy = targetObject.transform.position - transform.position;
+    startPosition = transform.position;
+    timePassed = 0f;
+  }
+
+  private void
+  FixedUpdate()
+  {
+    float timeMultiplier = 1;
+    if(attackTarget == null || attackTarget.GetComponent<EnemyController>().health < damage)
+      timeMultiplier = 8;
+    else
+      targetPosition = attackTarget.transform.position;
+
+    timePassed += Time.fixedDeltaTime * timeMultiplier;
+
+    if(timePassed > timeToHit)
+    {
+      if(attackTarget != null)
+        attackTarget.GetComponent<EnemyController>().GetHit(damage);
+
+      Destroy(gameObject);
+      return;
+    }
+
+    transform.position = Vector3.Lerp(startPosition, targetPosition, timePassed / timeToHit);
+
+    Vector3 vectorTowardsEnemy = targetPosition - transform.position;
     Vector3 directionTowardsEnemy = Vector3.Normalize(vectorTowardsEnemy);
     Quaternion quaternionTowardsEnemy = Quaternion.LookRotation(directionTowardsEnemy, transform.up);
-
-    transform.position += directionTowardsEnemy * speed * Time.fixedDeltaTime;
     transform.rotation = quaternionTowardsEnemy;
-
-    if(vectorTowardsEnemy.magnitude < .1f)
-    {
-      targetObject.GetComponent<EnemyController>().GetHit(damage);
-      Destroy(gameObject);
-    }
 	}
 }

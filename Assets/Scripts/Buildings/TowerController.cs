@@ -64,8 +64,10 @@ public class TowerController : MonoBehaviour
     Quaternion arrowRotation = Quaternion.LookRotation(vectorFromTowerToEnemy);
     Vector3 arrowStartPosition = arrowRotation * arrowStartOffset + transform.position;
     GameObject arrow = Instantiate<GameObject>(arrowObject, arrowStartPosition, arrowRotation);
-    arrow.GetComponent<ArrowController>().targetObject = enemy;
+    arrow.GetComponent<ArrowController>().attackTarget = enemy;
     arrow.GetComponent<ArrowController>().damage = damage;
+    arrow.GetComponent<ArrowController>().startPosition = arrowStartPosition;
+    arrow.SetActive(true);
   }
 
   IEnumerator AttackCooldown()

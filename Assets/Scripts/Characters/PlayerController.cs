@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
     if(!mouseController.mouseInUse)
     {
-      TileController tileController = worldController.get_groundTile_from_mouseCoords(
+      TileController tileController = worldController.GetGroundTile(
         Camera.main,
         Input.mousePosition);       
 
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
           last_hit_tile.GetComponent<MeshRenderer>().material.color = Color.green;
           if(Input.GetMouseButtonDown(0))
           {
-            worldController.create_tower_on_tile(
+            worldController.CreateTower(
               building,
               tileController);
 

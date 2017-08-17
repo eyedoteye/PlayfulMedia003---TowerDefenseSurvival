@@ -74,7 +74,7 @@ public class UpgradeMenuController : MonoBehaviour
     else if(selectedUpgrade.name == "UpgradeTowers")
     {
       basicTowerController.Upgrade();
-      worldController.update_all_towers(basicTowerController);  
+      worldController.UpdateAllTowers(basicTowerController);  
     }
 
     Debug.Log("Selected upgrade:" + selectedUpgrade);
