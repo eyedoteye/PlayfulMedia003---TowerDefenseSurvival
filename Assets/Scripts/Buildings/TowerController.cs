@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicTowerController : MonoBehaviour
+public class TowerController : MonoBehaviour
 {
   public LayerMask targetLayer;
-  public float towerRange;
   public GameObject arrowObject;
   public Vector3 arrowStartOffset;
+
+  public float towerRange;
   public int powerCost;
   public int gobCost;
   public float damage = .9f;
@@ -41,6 +42,20 @@ public class BasicTowerController : MonoBehaviour
       attackCooldown -= .1f;
     color.g = color.g * .6f;
     color.b = color.b * .6f;
+
+    GetComponent<MeshRenderer>().material.color = color;
+  }
+
+  public void matchUpgrade(TowerController towerController_base)
+  {
+    towerRange = towerController_base.towerRange;
+    powerCost = towerController_base.powerCost;
+    gobCost = towerController_base.gobCost;
+    damage = towerController_base.damage;
+    attackCooldown = towerController_base.attackCooldown;
+    color = towerController_base.color;
+
+    GetComponent<MeshRenderer>().material.color = color;
   }
 
   private void FireArrowAt(GameObject enemy)

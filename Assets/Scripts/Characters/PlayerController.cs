@@ -11,13 +11,13 @@ public class PlayerController : MonoBehaviour
   public Animator animator;
   public PowerHeadController powerHead;
   public SpriteRenderer spriteRenderer;
-  public MouseController mouseController;
   public GameObject gameoverScreen;
+  public MouseController mouseController;
+  public WorldController worldController;
 
   new private Rigidbody rigidbody;
-  private LayerMask groundTile_LayerMask;
 
-  private GameObject cached_LastHitTile;
+  private GameObject last_hit_tile;
 
   public enum Player_ControlMode 
   {
@@ -29,59 +29,60 @@ public class PlayerController : MonoBehaviour
 	void Start()
   {
     rigidbody = GetComponent<Rigidbody>();
-    groundTile_LayerMask = LayerMask.GetMask("Ground Tile");
 	}
 
   void PlaceBuildingUpdate()
   {
-    if(cached_LastHitTile != null)
+    if(last_hit_tile != null)
     {
-      cached_LastHitTile.GetComponent<MeshRenderer>().material.color = Color.white;
-      GameObject attachedBuilding = cached_LastHitTile.GetComponent<GroundTileProperties>().attachedBuilding;
+      last_hit_tile.GetComponent<MeshRenderer>().material.color = Color.white;
+      GameObject attachedBuilding = last_hit_tile.GetComponent<TileController>().attachedBuilding;
       if(attachedBuilding != null)
         attachedBuilding.GetComponent<MeshRenderer>().material.color =
-          attachedBuilding.GetComponent<BasicTowerController>().color;
+          attachedBuilding.GetComponent<TowerController>().color;
     }
 
     if(!mouseController.mouseInUse)
     {
-      RaycastHit hit;
-      if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 300f, groundTile_LayerMask))
-      {
-        GameObject hitObject = hit.transform.gameObject;
-        cached_LastHitTile = hitObject;
+      TileController tileController = worldController.get_groundTile_from_mouseCoords(
+        Camera.main,
+        Input.mousePosition);       
 
-        GroundTileProperties hitGroundTile = hitObject.GetComponent<GroundTileProperties>();
-        BasicTowerController basicTowerController = building.GetComponent<BasicTowerController>();
+      if(tileController != null)
+      {
+        GameObject hit_tile = tileController.gameObject;
+        last_hit_tile = hit_tile;
+
+        TowerController hit_towerController = building.GetComponent<TowerController>();
         if(
-          gobs >= basicTowerController.gobCost
-          && powerHead.availablePower >= basicTowerController.powerCost
-          && hitGroundTile.attachedBuilding == null)
+          gobs >= hit_towerController.gobCost
+          && powerHead.availablePower >= hit_towerController.powerCost
+          && tileController.attachedBuilding == null
+          && tileController.blocked == false)
         {
-          hitObject.GetComponent<MeshRenderer>().material.color = Color.green;
+          last_hit_tile.GetComponent<MeshRenderer>().material.color = Color.green;
           if(Input.GetMouseButtonDown(0))
           {
-            hitGroundTile.attachedBuilding = Instantiate(
+            worldController.create_tower_on_tile(
               building,
-              hitObject.transform.position + hitGroundTile.buildingOffset,
-              hitObject.transform.rotation);
-            hitGroundTile.attachedBuilding.SetActive(true);
-            powerHead.availablePower -= basicTowerController.powerCost;
-            gobs -= basicTowerController.gobCost;
+              tileController);
+
+            powerHead.availablePower -= hit_towerController.powerCost;
+            gobs -= hit_towerController.gobCost;
           }
         }
         else
         {
-          hitObject.GetComponent<MeshRenderer>().material.color = Color.red;
+          hit_tile.GetComponent<MeshRenderer>().material.color = Color.red;
 
-          if(hitGroundTile.attachedBuilding != null)
-            hitGroundTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
+          if(tileController.attachedBuilding != null)
+            tileController.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
 
           if(Input.GetMouseButtonDown(1))
           {
-            Destroy(hitGroundTile.attachedBuilding);
-            hitGroundTile.attachedBuilding = null;
-            powerHead.availablePower += basicTowerController.powerCost;
+            Destroy(tileController.attachedBuilding);
+            tileController.attachedBuilding = null;
+            powerHead.availablePower += hit_towerController.powerCost;
           }
         }
       }
@@ -138,5 +139,4 @@ public class PlayerController : MonoBehaviour
       } break;
     }
   }
-  
 }

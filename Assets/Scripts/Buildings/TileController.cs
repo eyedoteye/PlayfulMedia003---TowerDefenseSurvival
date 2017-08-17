@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundTileProperties : MonoBehaviour
+public class TileController : MonoBehaviour
 {
-  public Vector3 buildingOffset;
   public GameObject attachedBuilding;
+  public int col, row;
+  public bool blocked;
 }
