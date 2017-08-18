@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnergyHUDController : MonoBehaviour
+public class
+EnergyHUDController : MonoBehaviour
 {
-  public int blipMax;
   public Sprite[] blipSprites;
   public PowerHeadController powerHeadController;
   public GameObject energyBlip_Base;
 
   private GameObject[] blips;
   private int blipCount;
+  private int blipMax = 20;
 
-  private void Start()
+  private void
+  Start()
   {
     GetComponent<Image>().enabled = false;
+
     blips = new GameObject[blipMax];
     for(int blipIndex = 0; blipIndex < blipMax; ++blipIndex)
     {
@@ -34,24 +37,26 @@ public class EnergyHUDController : MonoBehaviour
     blipCount = 0;
   }
 
-  private void Update()
+  private void
+  Update()
   {
     int blipDiff = powerHeadController.availablePower - blipCount;
+
     if(blipDiff < 0)
       RemoveBlips(-blipDiff);
     else if(blipDiff > 0)
       AddBlips(blipDiff);
   }
 
-  private void AddBlips(int count)
+  private void
+  AddBlips(int count)
   {
     for(int iterator = 0; iterator < count; ++iterator)
-    {
       AddBlip();
-    }
   }
 
-  private void RemoveBlips(int count)
+  private void
+  RemoveBlips(int count)
   {
     for(int iterator = 0; iterator < count; ++iterator)
     {
@@ -59,7 +64,8 @@ public class EnergyHUDController : MonoBehaviour
     }
   }
 
-  private void AddBlip()
+  private void
+  AddBlip()
   {
     Image spriteRenderer = blips[blipCount].GetComponent<Image>();
     
@@ -83,11 +89,10 @@ public class EnergyHUDController : MonoBehaviour
     blipCount++;
   }
 
-  private void RemoveBlip()
+  private void
+  RemoveBlip()
   {
     blipCount--;
     blips[blipCount].GetComponent<Image>().enabled = false;
   }
-
-
 }

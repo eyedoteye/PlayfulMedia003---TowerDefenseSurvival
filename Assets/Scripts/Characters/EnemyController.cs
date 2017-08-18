@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class
+EnemyController : MonoBehaviour
 {
-  public GameObject navigationTarget;
   public float moveSpeed;
   public float health;
-  public Transform attackPosition;
   public float attackRange;
   public float attackRangeBeforeMiss;
+
+  public Transform attackPosition;
   public Animator animator;
   public SpriteRenderer spriteRenderer;
   public GameObject gobBase;
 
+  public GameObject navigationTarget;
+
   new private Rigidbody rigidbody;
   private NavMeshAgent navmeshAgent;
 
-  public bool isDead = false;
+  public bool dead = false;
   private float stunTime = 0f;
 
-	void Start()
+	private void
+  Start()
   {
     rigidbody = GetComponent<Rigidbody>();
     navmeshAgent = GetComponent<NavMeshAgent>();
@@ -31,43 +35,10 @@ public class EnemyController : MonoBehaviour
     StartCoroutine(navigateCoroutine);
 	}
 
-  public void MeleeTarget()
+  private void
+  Update()
   {
-    Vector3 targetOffsetFromAttack = navigationTarget.transform.position - attackPosition.transform.position;
-    targetOffsetFromAttack.y = 0;
-    if(targetOffsetFromAttack.magnitude < attackRangeBeforeMiss)
-    {
-      PlayerController playerController = navigationTarget.GetComponent<PlayerController>();
-      if(playerController != null)
-        playerController.GetHit(1);
-    }
-  }
-
-  public void ResetAnimationBools()
-  {
-    animator.SetBool("isHit", false);
-    animator.SetBool("isAttacking", false);
-  }
-
-  public void GetHit(float damage)
-  {
-    health -= damage;
-    stunTime = 0.5f;
-    if(health <= 0)
-    {
-      isDead = true;
-      animator.SetBool("isDead", true);
-      animator.SetBool("isHit", false);
-    }
-    else
-    {
-      animator.SetBool("isHit", true);
-    }
-  }
-
-  void Update()
-  {
-    if(!isDead)
+    if(!dead)
     {
       stunTime -= Time.deltaTime;
       if(stunTime < 0)
@@ -91,17 +62,8 @@ public class EnemyController : MonoBehaviour
     }
   }
 
-  public void Unexist()
-  {
-    GameObject gob = Instantiate(gobBase);
-    Vector3 gobPosition = transform.position;
-    gobPosition.y = gobBase.transform.position.y;
-    gob.transform.position = gobPosition;
-
-    Destroy(gameObject);
-  }
-
-  private void FixedUpdate()
+  private void
+  FixedUpdate()
   {
     navmeshAgent.velocity = Vector3.zero;
     rigidbody.velocity = Vector3.zero;
@@ -120,7 +82,56 @@ public class EnemyController : MonoBehaviour
     }
   }
 
-  IEnumerator Navigate()
+  public void
+  MeleeTarget()
+  {
+    Vector3 targetOffsetFromAttack = navigationTarget.transform.position - attackPosition.transform.position;
+    targetOffsetFromAttack.y = 0;
+    if(targetOffsetFromAttack.magnitude < attackRangeBeforeMiss)
+    {
+      PlayerController playerController = navigationTarget.GetComponent<PlayerController>();
+      if(playerController != null)
+        playerController.GetHit(1);
+    }
+  }
+
+  public void
+  ResetAnimationBools()
+  {
+    animator.SetBool("isHit", false);
+    animator.SetBool("isAttacking", false);
+  }
+
+  public void
+  GetHit(float damage)
+  {
+    health -= damage;
+    stunTime = 0.5f;
+    if(health <= 0)
+    {
+      dead = true;
+      animator.SetBool("isDead", true);
+      animator.SetBool("isHit", false);
+    }
+    else
+    {
+      animator.SetBool("isHit", true);
+    }
+  }
+
+  public void
+  Die()
+  {
+    GameObject gob = Instantiate(gobBase);
+    Vector3 gobPosition = transform.position;
+    gobPosition.y = gobBase.transform.position.y;
+    gob.transform.position = gobPosition;
+
+    Destroy(gameObject);
+  }
+
+  private IEnumerator
+  Navigate()
   {
     for(;;)
     {

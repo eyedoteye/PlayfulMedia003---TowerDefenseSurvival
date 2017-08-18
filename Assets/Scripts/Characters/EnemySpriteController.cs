@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpriteController : MonoBehaviour
+public class
+EnemySpriteController : MonoBehaviour
 {
   public EnemyController parent;
 
-  public void MeleeTarget()
+  public void
+  MeleeTarget()
   {
     parent.MeleeTarget();
   }
 
-  public void ResetAnimationBools()
+  public void
+  ResetAnimationBools()
   {
     parent.ResetAnimationBools();
   }
 
-  public void Unexist()
+  public void
+  Die()
   {
-    parent.Unexist();
+    parent.Die();
   }
 }

@@ -106,7 +106,7 @@ TowerController : MonoBehaviour
     foreach(Collider collisionWithTarget in collisionsWithTargetsInRange)
     {
       EnemyController enemy = collisionWithTarget.gameObject.GetComponent<EnemyController>();
-      if(enemy == null || enemy.isDead)
+      if(enemy == null || enemy.dead)
         continue;
 
       if(

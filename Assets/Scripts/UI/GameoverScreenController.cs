@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameoverScreenController : MonoBehaviour
+public class
+GameoverScreenController : MonoBehaviour
 {
   public GameObject optionSelector;
 
   private Animator animator;
-  private int gameover_animatorProperty_hash = Animator.StringToHash("gameover");
+  private int gameoverAnimationpropertyHash = Animator.StringToHash("gameover");
 
-  private void Awake()
+  private void
+  Awake()
   {
     animator = GetComponent<Animator>();
     Debug.Log("awake" + optionSelector);
   }
 
-  private void Start()
+  private void
+  Start()
   {
-    animator.SetTrigger(gameover_animatorProperty_hash);
+    animator.SetTrigger(gameoverAnimationpropertyHash);
     Debug.Log("start" + optionSelector);
   }
 
-  public void SelectOption(GameObject option)
+  public void
+  SelectOption(GameObject option)
   {
     Debug.Log("select: " + optionSelector);
 
@@ -30,12 +34,14 @@ public class GameoverScreenController : MonoBehaviour
       option.GetComponent<RectTransform>().position;
   }
 
-  public void RestartGame()
+  public void
+  RestartGame()
   {
     SceneManager.LoadScene("MainScene");
   }
 
-  public void EndGame()
+  public void
+  EndGame()
   {
     SceneManager.LoadScene("StartScreen");
   }

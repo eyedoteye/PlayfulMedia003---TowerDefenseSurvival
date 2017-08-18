@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthHUDController : MonoBehaviour
+public class
+HealthHUDController : MonoBehaviour
 {
-  public PlayerController playerController;
   public Sprite[] healthSprites;
+
+  public PlayerController playerController;
 
   private Image image; 
 
-	void Start()
+	private void
+  Start()
   {
     image = GetComponent<Image>();	
 	}
 	
-	void Update()
+	private void
+  Update()
   {
     int healthSpriteIndex = playerController.health - 1;
     if(healthSpriteIndex < 0)

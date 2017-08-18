@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSpriteController : MonoBehaviour
+public class
+PlayerSpriteController : MonoBehaviour
 {
   public PlayerController parent;
 
-  public void ResetAnimationBools()
+  public void
+  ResetAnimationBools()
   {
     parent.ResetAnimationBools();
   }

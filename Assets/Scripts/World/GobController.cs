@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GobController : MonoBehaviour
+public class
+GobController : MonoBehaviour
 {
-  private void OnTriggerEnter(Collider other)
+  private void
+  OnTriggerEnter(Collider other)
   {
     PlayerController playerController = other.GetComponent<PlayerController>();
     if(playerController != null)

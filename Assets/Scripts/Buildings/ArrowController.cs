@@ -44,8 +44,11 @@ ArrowController : MonoBehaviour
     transform.position = Vector3.Lerp(startPosition, targetPosition, timePassed / timeToHit);
 
     Vector3 vectorTowardsEnemy = targetPosition - transform.position;
-    Vector3 directionTowardsEnemy = Vector3.Normalize(vectorTowardsEnemy);
-    Quaternion quaternionTowardsEnemy = Quaternion.LookRotation(directionTowardsEnemy, transform.up);
-    transform.rotation = quaternionTowardsEnemy;
-	}
+    if(vectorTowardsEnemy.magnitude != 0)
+    {
+      Vector3 directionTowardsEnemy = Vector3.Normalize(vectorTowardsEnemy);
+      Quaternion quaternionTowardsEnemy = Quaternion.LookRotation(directionTowardsEnemy, transform.up);
+      transform.rotation = quaternionTowardsEnemy;
+    }
+  }
 }

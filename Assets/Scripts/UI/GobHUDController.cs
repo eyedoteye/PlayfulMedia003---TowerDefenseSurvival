@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class GobHUDController : MonoBehaviour {
 
-  public PlayerController playerController;
   public Text gobCountText;
   private int gobCount;
+
+  public PlayerController playerController;
 	
-	void Update()
+	private void
+  Update()
   {
     if(gobCount != playerController.gobs)
     {

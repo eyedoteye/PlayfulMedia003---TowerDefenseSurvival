@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerHeadController : MonoBehaviour
+public class
+PowerHeadController : MonoBehaviour
 {
   public int availablePower;
   public int maxPower;
+
   public Canvas upgradeMenu;
-  public LayerMask building_LayerMask;
+  public LayerMask buildingLayerMask;
   public MouseController mouseController;
 
-  public void Start()
+  private void
+  Start()
   {
     upgradeMenu.enabled = false;
   }
 
-  void Update()
+  private void
+  Update()
   {
     if(Input.GetMouseButton(0))
     {
@@ -25,12 +29,10 @@ public class PowerHeadController : MonoBehaviour
           Camera.main.ScreenPointToRay(Input.mousePosition),
           out hit,
           300f,
-          building_LayerMask))
+          buildingLayerMask))
       {
-        Debug.Log(gameObject + "" + hit.transform.gameObject);
         if(hit.transform.gameObject.Equals(gameObject))
         {
-          Debug.Log("enable");
           upgradeMenu.enabled = true;
           mouseController.mouseInUse = true;
           mouseController.controlMode = MouseController.ControlMode.UpgradeMenu;
@@ -43,7 +45,6 @@ public class PowerHeadController : MonoBehaviour
         Input.GetMouseButtonUp(0)
         && mouseController.controlMode == MouseController.ControlMode.UpgradeMenu)
       {
-        Debug.Log("disable");
         upgradeMenu.GetComponent<UpgradeMenuController>().confirmUpgrade();
         upgradeMenu.enabled = false;
         mouseController.mouseInUse = false;

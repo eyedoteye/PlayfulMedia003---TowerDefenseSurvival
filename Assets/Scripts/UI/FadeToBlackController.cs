@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FadeToBlackController : MonoBehaviour
+public class
+FadeToBlackController : MonoBehaviour
 {
-	public void GoToGameoverScene()
+	public void
+  GoToGameoverScene()
   {
     SceneManager.LoadScene("GameoverScene");
 	}

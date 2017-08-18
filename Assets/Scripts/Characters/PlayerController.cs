@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class
+PlayerController : MonoBehaviour
 {
   public float speed = 1f;
   public int health = 10;
   public int gobs = 0;
+
   public GameObject building;
   public Animator animator;
   public PowerHeadController powerHead;
@@ -16,27 +18,54 @@ public class PlayerController : MonoBehaviour
   public WorldController worldController;
 
   new private Rigidbody rigidbody;
+  private GameObject lastHitTile;
 
-  private GameObject last_hit_tile;
-
-  public enum Player_ControlMode 
-  {
-    Move,
-    Build
-  } private Player_ControlMode player_controlMode =
-    Player_ControlMode.Move;
-
-	void Start()
+	private void
+  Start()
   {
     rigidbody = GetComponent<Rigidbody>();
 	}
 
-  void PlaceBuildingUpdate()
+	private void
+  Update()
   {
-    if(last_hit_tile != null)
+    HandleBuildingPlacement();
+    if(rigidbody.velocity.x < 0)
+      spriteRenderer.flipX = true;
+    else if(rigidbody.velocity.x > 0)
+      spriteRenderer.flipX = false;
+	}
+
+  private void
+  FixedUpdate()
+  {
+    Vector2 leftJoystickInput;
+    leftJoystickInput.x = Input.GetAxisRaw("Horizontal");
+    leftJoystickInput.y = Input.GetAxisRaw("Vertical");
+
+    float speedMultiplier = 1f;
+    if(animator.GetBool("isHit"))
+      speedMultiplier = 0.3f;
+
+    Vector3 movement = new Vector3(
+      leftJoystickInput.x,
+      0f,
+      leftJoystickInput.y);
+
+    rigidbody.velocity = Vector3.zero;
+
+    rigidbody.AddForce(
+      movement * speed * speedMultiplier * Time.fixedDeltaTime,
+      ForceMode.VelocityChange);
+  }
+
+  private void
+  HandleBuildingPlacement()
+  {
+    if(lastHitTile != null)
     {
-      last_hit_tile.GetComponent<MeshRenderer>().material.color = Color.white;
-      GameObject attachedBuilding = last_hit_tile.GetComponent<TileController>().attachedBuilding;
+      lastHitTile.GetComponent<MeshRenderer>().material.color = Color.white;
+      GameObject attachedBuilding = lastHitTile.GetComponent<TileController>().attachedBuilding;
       if(attachedBuilding != null)
         attachedBuilding.GetComponent<MeshRenderer>().material.color =
           attachedBuilding.GetComponent<TowerController>().color;
@@ -50,60 +79,55 @@ public class PlayerController : MonoBehaviour
 
       if(tileController != null)
       {
-        GameObject hit_tile = tileController.gameObject;
-        last_hit_tile = hit_tile;
+        GameObject hitTile = tileController.gameObject;
+        lastHitTile = hitTile;
 
-        TowerController hit_towerController = building.GetComponent<TowerController>();
+        TowerController hitTowerController = building.GetComponent<TowerController>();
         if(
-          gobs >= hit_towerController.gobCost
-          && powerHead.availablePower >= hit_towerController.powerCost
+          gobs >= hitTowerController.gobCost
+          && powerHead.availablePower >= hitTowerController.powerCost
           && tileController.attachedBuilding == null
           && tileController.blocked == false)
         {
-          last_hit_tile.GetComponent<MeshRenderer>().material.color = Color.green;
+          lastHitTile.GetComponent<MeshRenderer>().material.color = Color.green;
           if(Input.GetMouseButtonDown(0))
           {
             worldController.CreateTower(
               building,
               tileController);
 
-            powerHead.availablePower -= hit_towerController.powerCost;
-            gobs -= hit_towerController.gobCost;
+            powerHead.availablePower -= hitTowerController.powerCost;
+            gobs -= hitTowerController.gobCost;
           }
         }
         else
         {
-          hit_tile.GetComponent<MeshRenderer>().material.color = Color.red;
+          hitTile.GetComponent<MeshRenderer>().material.color = Color.red;
 
           if(tileController.attachedBuilding != null)
+          {
             tileController.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
 
-          if(Input.GetMouseButtonDown(1))
-          {
-            Destroy(tileController.attachedBuilding);
-            tileController.attachedBuilding = null;
-            powerHead.availablePower += hit_towerController.powerCost;
+            if(Input.GetMouseButtonDown(1))
+            {
+              Destroy(tileController.attachedBuilding);
+              tileController.attachedBuilding = null;
+              powerHead.availablePower += hitTowerController.powerCost;
+            }
           }
         }
       }
     }
   }
 	
-	void Update()
-  {
-    PlaceBuildingUpdate();
-    if(rigidbody.velocity.x < 0)
-      spriteRenderer.flipX = true;
-    else if(rigidbody.velocity.x > 0)
-      spriteRenderer.flipX = false;
-	}
-
-  public void ResetAnimationBools()
+  public void
+  ResetAnimationBools()
   {
     animator.SetBool("isHit", false);
   }
 
-  public void GetHit(int damage)
+  public void
+  GetHit(int damage)
   {
     health -= damage;
     animator.SetBool("isHit", true);
@@ -112,31 +136,4 @@ public class PlayerController : MonoBehaviour
       gameoverScreen.SetActive(true);
   }
 
-  private void FixedUpdate()
-  {
-    Vector2 leftJoystickInput;
-    leftJoystickInput.x = Input.GetAxisRaw("Horizontal");
-    leftJoystickInput.y = Input.GetAxisRaw("Vertical");
-
-    float speedMultiplier = 1f;
-    if(animator.GetBool("isHit"))
-      speedMultiplier = 0.3f;
-
-    switch(player_controlMode)
-    {
-      case Player_ControlMode.Move:
-      {
-        Vector3 movement = new Vector3(
-          leftJoystickInput.x,
-          0f,
-          leftJoystickInput.y);
-
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.AddForce(
-          movement * speed * speedMultiplier * Time.fixedDeltaTime,
-          ForceMode.VelocityChange);
-
-      } break;
-    }
-  }
 }
