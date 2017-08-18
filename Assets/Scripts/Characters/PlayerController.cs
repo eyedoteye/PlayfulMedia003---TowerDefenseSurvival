@@ -29,7 +29,6 @@ PlayerController : MonoBehaviour
 	private void
   Update()
   {
-    HandleBuildingPlacement();
     if(rigidbody.velocity.x < 0)
       spriteRenderer.flipX = true;
     else if(rigidbody.velocity.x > 0)
@@ -57,6 +56,8 @@ PlayerController : MonoBehaviour
     rigidbody.AddForce(
       movement * speed * speedMultiplier * Time.fixedDeltaTime,
       ForceMode.VelocityChange);
+
+    HandleBuildingPlacement();
   }
 
   private void

@@ -2724,7 +2724,7 @@ MonoBehaviour:
   upgradeMenu: {fileID: 584720475}
   buildingLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   mouseController: {fileID: 127684115}
 --- !u!1 &1692819697
 GameObject:
