@@ -7,7 +7,7 @@ TileController : MonoBehaviour
 {
   public LayerMask buildingLayerMask;
 
-  public int col, row;
+  public int column, row;
   public bool blocked;
   public GameObject attachedBuilding;
 

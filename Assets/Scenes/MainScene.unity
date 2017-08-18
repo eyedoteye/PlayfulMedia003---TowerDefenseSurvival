@@ -972,7 +972,7 @@ MonoBehaviour:
   buildingLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  col: 0
+  column: 0
   row: 0
   blocked: 0
   attachedBuilding: {fileID: 0}
@@ -1682,6 +1682,11 @@ Prefab:
       propertyPath: worldController
       value: 
       objectReference: {fileID: 730042933}
+    - target: {fileID: 114022378890376774, guid: bce21020136ebb145a046afeb3a334ca,
+        type: 2}
+      propertyPath: baseTower
+      value: 
+      objectReference: {fileID: 1868381053}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bce21020136ebb145a046afeb3a334ca, type: 2}
   m_IsPrefabParent: 0
@@ -3072,6 +3077,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerCost: 2
   gobCost: 1
+  subtileWidth: 3
+  subtileHeight: 3
   towerRange: 2.63
   damage: 0.8
   attackCooldown: 3

@@ -9,7 +9,7 @@ PlayerController : MonoBehaviour
   public int health = 10;
   public int gobs = 0;
 
-  public GameObject building;
+  public TowerController baseTower;
   public Animator animator;
   public PowerHeadController powerHead;
   public SpriteRenderer spriteRenderer;
@@ -63,59 +63,66 @@ PlayerController : MonoBehaviour
   private void
   HandleBuildingPlacement()
   {
-    if(lastHitTile != null)
-    {
-      lastHitTile.GetComponent<MeshRenderer>().material.color = Color.white;
-      GameObject attachedBuilding = lastHitTile.GetComponent<TileController>().attachedBuilding;
-      if(attachedBuilding != null)
-        attachedBuilding.GetComponent<MeshRenderer>().material.color =
-          attachedBuilding.GetComponent<TowerController>().color;
-    }
+    worldController.UnhilightAllTowers();
 
     if(!mouseController.mouseInUse)
     {
-      TileController tileController = worldController.GetGroundTile(
+      TileController centerTileController = worldController.GetTileFromMousePosition(
         Camera.main,
-        Input.mousePosition);       
+        Input.mousePosition);
+      TileController[] tileControllers = worldController.GetTilesForBuilding(
+        centerTileController,
+        baseTower);
 
-      if(tileController != null)
+      if(
+        worldController.TilesAreValidForBuilding(tileControllers)
+        && gobs >= baseTower.gobCost
+        && powerHead.availablePower >= baseTower.powerCost)
       {
-        GameObject hitTile = tileController.gameObject;
-        lastHitTile = hitTile;
-
-        TowerController hitTowerController = building.GetComponent<TowerController>();
-        if(
-          gobs >= hitTowerController.gobCost
-          && powerHead.availablePower >= hitTowerController.powerCost
-          && tileController.attachedBuilding == null
-          && tileController.blocked == false)
+        for(
+          int tileIndex = 0;
+          tileIndex < tileControllers.Length;
+          ++tileIndex)
         {
-          lastHitTile.GetComponent<MeshRenderer>().material.color = Color.green;
-          if(Input.GetMouseButtonDown(0))
-          {
-            worldController.CreateTower(
-              building,
-              tileController);
+          TileController hitTile = tileControllers[tileIndex];
 
-            powerHead.availablePower -= hitTowerController.powerCost;
-            gobs -= hitTowerController.gobCost;
-          }
+          hitTile.GetComponent<MeshRenderer>().material.color = Color.green;
         }
-        else
+
+        if(Input.GetMouseButtonDown(0))
         {
+          worldController.CreateTower(
+          baseTower.gameObject,
+          centerTileController,
+          tileControllers);
+          
+          powerHead.availablePower -= baseTower.powerCost;
+          gobs -= baseTower.gobCost;
+        }
+        
+      }
+      else if(tileControllers != null)
+      {
+        for(
+          int tileIndex = 0;
+          tileIndex < tileControllers.Length;
+          ++tileIndex)
+        {
+          TileController hitTile = tileControllers[tileIndex];
+          if(hitTile == null)
+            continue;
+
           hitTile.GetComponent<MeshRenderer>().material.color = Color.red;
+          if(hitTile.attachedBuilding != null)
+            hitTile.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
 
-          if(tileController.attachedBuilding != null)
-          {
-            tileController.attachedBuilding.GetComponent<MeshRenderer>().material.color = Color.red;
-
-            if(Input.GetMouseButtonDown(1))
-            {
-              Destroy(tileController.attachedBuilding);
-              tileController.attachedBuilding = null;
-              powerHead.availablePower += hitTowerController.powerCost;
-            }
-          }
+        if(centerTileController.attachedBuilding != null && Input.GetMouseButtonDown(1))
+        {
+          worldController.RemoveTower(
+            centerTileController,
+            tileControllers);
+          powerHead.availablePower += baseTower.powerCost;
         }
       }
     }

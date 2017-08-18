@@ -35,8 +35,8 @@ WorldController : MonoBehaviour
         ++rowIndex)
       {
         TileController groundTileController = CreateTile(
-          columnIndex - trueColumns / 2,
-          rowIndex - trueRows / 2);
+          columnIndex,
+          rowIndex);
 
         groundTileController.DestroyIfCollidingWithBuilding();
 
@@ -51,9 +51,9 @@ WorldController : MonoBehaviour
     float tileScale = 1f / tileDivisions;
 
     Vector3 tilePosition = new Vector3(
-      (column + 0.5f) * tileScale,
+      (column - trueColumns / 2f) * tileScale,
       0f,
-      (row + 0.5f) * tileScale);
+      (row - trueRows / 2f) * tileScale);
 
     GameObject tile = Instantiate<GameObject>(baseTile);
     tile.transform.SetParent(transform, false);
@@ -64,14 +64,14 @@ WorldController : MonoBehaviour
     TileController tileProperties =
       tile.GetComponent<TileController>();
     tileProperties.blocked = false;
-    tileProperties.col = column;
+    tileProperties.column = column;
     tileProperties.row = row;
 
     return tileProperties;
   }
 
   public TileController
-  GetGroundTile(
+  GetTileFromMousePosition(
     Camera camera,
     Vector2 mouseCoords)
   {
@@ -88,24 +88,143 @@ WorldController : MonoBehaviour
     return tileHit.transform.gameObject.GetComponent<TileController>();
   }
 
-  public void
-  CreateTower(
-    GameObject tower_base,
-    TileController tileController)
+  public bool
+  TilesAreValidForBuilding(TileController[] tileControllersForBuilding)
   {
-    GameObject tower = Instantiate(tower_base);
-    tower.transform.position =
-      tileController.transform.position + tower_base.transform.position;
-    tower.SetActive(true);
+    if(tileControllersForBuilding == null)
+      return false;
 
-    tileController.attachedBuilding = tower;
+    for(
+      int tileIndex = 0;
+      tileIndex < tileControllersForBuilding.Length;
+      ++tileIndex)
+    {
+      TileController checkeeTileController = tileControllersForBuilding[tileIndex];
+      if(checkeeTileController == null)
+        return false;
+      
+      if(checkeeTileController.blocked)
+        return false;
+      
+      if(checkeeTileController.attachedBuilding != null)
+        return false;
+    }
+
+    return true;
+  }
+
+  public TileController[]
+  GetTilesForBuilding(
+    TileController centerTileController,
+    TowerController towerController)
+  {
+    if(centerTileController == null)
+      return null;
+
+    TileController[] tileControllersForBuilding = new TileController[
+      towerController.subtileWidth * towerController.subtileHeight];
+    int tileIndex = 0;
+
+    int halfWidth = towerController.subtileWidth / 2;
+
+    int startColumnIndex = centerTileController.column - halfWidth;
+    if(startColumnIndex < 0)
+      startColumnIndex = 0;
+    int endColumnIndex = centerTileController.column + halfWidth;
+    if(endColumnIndex >= trueColumns)
+      endColumnIndex = trueColumns - 1;
+
+    int halfHeight = towerController.subtileHeight / 2;
+
+    int startRowIndex = centerTileController.row - halfHeight;
+    if(startRowIndex < 0)
+      startRowIndex = 0;
+    int endRowIndex = centerTileController.row + halfHeight;
+    if(endRowIndex >= trueRows)
+      endRowIndex = trueRows - 1;
+
+    for(
+      int columnIndex = startColumnIndex;
+      columnIndex <= endColumnIndex;
+      ++columnIndex)
+    {
+      for(
+        int rowIndex = startRowIndex;
+        rowIndex <= endRowIndex;
+        ++rowIndex)
+      {
+        tileControllersForBuilding[tileIndex] = tileControllers[columnIndex, rowIndex];
+        ++tileIndex;
+      }
+    }
+
+    return tileControllersForBuilding;
   }
 
   public void
-  RemoveTower(TileController tileController)
+  CreateTower(
+    GameObject baseTower,
+    TileController centerTileControllerForBuilding,
+    TileController[] tileControllersForBuilding)
   {
-    Destroy(tileController.attachedBuilding);
-    tileController.attachedBuilding = null;
+    GameObject tower = Instantiate(baseTower);
+    tower.transform.position =
+      centerTileControllerForBuilding.transform.position + baseTower.transform.position;
+    tower.SetActive(true);
+
+    for(
+      int tileIndex = 0;
+      tileIndex < tileControllersForBuilding.Length;
+      ++tileIndex)
+    {
+      TileController tileController = tileControllersForBuilding[tileIndex];
+      if(tileController != null)
+        tileControllersForBuilding[tileIndex].attachedBuilding = tower;
+    }
+  }
+
+  public void
+  RemoveTower(
+    TileController  centerTileControllerForBuilding,
+    TileController[] tileControllersForBuilding)
+  {
+    Destroy(centerTileControllerForBuilding.attachedBuilding);
+
+    for(
+      int tileIndex = 0;
+      tileIndex < tileControllersForBuilding.Length;
+      ++tileIndex)
+    {
+      TileController tileController = tileControllersForBuilding[tileIndex];
+      if(tileController != null)
+        tileControllersForBuilding[tileIndex].attachedBuilding = null;
+    }
+
+  }
+
+  public void
+  UnhilightAllTowers()
+  {
+    for(
+      int columnIndex = 0;
+      columnIndex < trueColumns;
+      ++columnIndex)
+    {
+      for(
+        int rowIndex = 0;
+        rowIndex < trueRows;
+        ++rowIndex)
+      {
+        TileController tileController = tileControllers[columnIndex, rowIndex];
+        if(tileController == null)
+          continue;
+
+        tileController.GetComponent<MeshRenderer>().material.color = Color.white;
+        if(tileController.attachedBuilding != null)
+          tileController.attachedBuilding.GetComponent<MeshRenderer>().material.color =
+            tileController.attachedBuilding.GetComponent<TowerController>().color;
+      }
+    }
   }
 
   public void
@@ -113,12 +232,12 @@ WorldController : MonoBehaviour
   {
     for(
       int columnIndex = 0;
-      columnIndex < columns;
+      columnIndex < trueColumns;
       ++columnIndex)
     {
       for(
         int rowIndex = 0;
-        rowIndex < rows;
+        rowIndex < trueRows;
         ++rowIndex)
       {
         TileController tileController = tileControllers[columnIndex, rowIndex];

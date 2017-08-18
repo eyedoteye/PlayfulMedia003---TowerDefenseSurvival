@@ -7,6 +7,8 @@ TowerController : MonoBehaviour
 {
   public int powerCost;
   public int gobCost;
+  public int subtileWidth = 3;
+  public int subtileHeight = 3;
   public float towerRange;
   public float damage = .9f;
   public float attackCooldown = 3f;
