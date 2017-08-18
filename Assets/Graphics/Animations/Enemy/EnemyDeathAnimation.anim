@@ -97,7 +97,7 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 1.3333334
-    functionName: Unexist
+    functionName: Die
     data: 
     objectReferenceParameter: {fileID: 1562937312698782, guid: 34b03a6df0a8c2440985b7f9cfa38728,
       type: 2}
