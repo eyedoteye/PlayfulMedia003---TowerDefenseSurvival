@@ -32,9 +32,10 @@ TowerController : MonoBehaviour
     {
       EnemyController enemy = GetEnemyWithLowestHealth();
       if(enemy != null) 
+      {
         FireArrowAt(enemy.gameObject);
-      
-      attackReady = false;
+        attackReady = false;
+      }
     }
 	}
   
