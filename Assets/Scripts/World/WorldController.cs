@@ -7,39 +7,40 @@ WorldController : MonoBehaviour
 {
   public int columns;
   public int rows;
+  public int tileDivisions; 
 
   public GameObject baseTile;
   public LayerMask tileLayerMask;
 
   private TileController[,] tileControllers;
+  private int trueColumns;
+  private int trueRows;
 
   void
   Awake()
   {
-    tileControllers = new TileController[columns, rows];
+    trueColumns = columns * tileDivisions;
+    trueRows = rows * tileDivisions;
+
+    tileControllers = new TileController[trueColumns, trueRows];
 
     for(
       int columnIndex = 0;
-      columnIndex < columns;
+      columnIndex < trueColumns;
       ++columnIndex)
     {
       for(
         int rowIndex = 0;
-        rowIndex < rows;
+        rowIndex < trueRows;
         ++rowIndex)
       {
-        // Skip middle 4 tiles,
-        // perhaps later develop a method that makes level design easier?
-        if (rowIndex == rows / 2 || rowIndex == rows / 2 - 1)
-          if (columnIndex == columns / 2 || columnIndex == columns / 2 - 1)
-            continue;
-
         TileController groundTileController = CreateTile(
-          columnIndex - columns / 2,
-          rowIndex - rows / 2);
+          columnIndex - trueColumns / 2,
+          rowIndex - trueRows / 2);
+
+        groundTileController.DestroyIfCollidingWithBuilding();
 
         tileControllers[columnIndex, rowIndex] = groundTileController;
-
       }
     }
 	}
@@ -47,11 +48,17 @@ WorldController : MonoBehaviour
   private TileController
   CreateTile(int column, int row)
   {
-    Vector3 tilePosition = new Vector3(column + 0.5f, 0f, row + 0.5f);
+    float tileScale = 1f / tileDivisions;
+
+    Vector3 tilePosition = new Vector3(
+      (column + 0.5f) * tileScale,
+      0f,
+      (row + 0.5f) * tileScale);
 
     GameObject tile = Instantiate<GameObject>(baseTile);
     tile.transform.SetParent(transform, false);
     tile.transform.position = tilePosition;
+    tile.transform.localScale = new Vector3(tileScale, tileScale, 1f); 
     tile.SetActive(true);
 
     TileController tileProperties =
