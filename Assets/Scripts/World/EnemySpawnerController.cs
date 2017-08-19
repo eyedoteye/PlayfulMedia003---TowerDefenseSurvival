@@ -22,7 +22,8 @@ public class EnemySpawnerController : MonoBehaviour
         transform.position + enemyObject.transform.position,
         enemyObject.transform.rotation);
       EnemyController enemyController = enemyInstance.GetComponent<EnemyController>();
-      enemyController.navigationTarget = enemyTarget;
+      enemyController.attackTarget = enemyTarget;
+      enemyInstance.SetActive(true);
 
       yield return new WaitForSeconds(5f);
     }

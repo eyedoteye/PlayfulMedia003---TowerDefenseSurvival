@@ -51,9 +51,9 @@ WorldController : MonoBehaviour
     float tileScale = 1f / tileDivisions;
 
     Vector3 tilePosition = new Vector3(
-      (column - trueColumns / 2f) * tileScale,
+      (column - trueColumns / 2f + 0.5f) * tileScale,
       0f,
-      (row - trueRows / 2f) * tileScale);
+      (row - trueRows / 2f + 0.5f) * tileScale);
 
     GameObject tile = Instantiate<GameObject>(baseTile);
     tile.transform.SetParent(transform, false);
@@ -168,6 +168,9 @@ WorldController : MonoBehaviour
     TileController[] tileControllersForBuilding)
   {
     GameObject tower = Instantiate(baseTower);
+    TowerController towerController = tower.GetComponent<TowerController>();
+    towerController.centerTile = centerTileControllerForBuilding;
+    towerController.tiles = tileControllersForBuilding;
     tower.transform.position =
       centerTileControllerForBuilding.transform.position + baseTower.transform.position;
     tower.SetActive(true);

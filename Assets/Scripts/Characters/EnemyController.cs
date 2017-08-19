@@ -11,61 +11,89 @@ EnemyController : MonoBehaviour
   public float attackRange;
   public float attackRangeBeforeMiss;
 
-  public Transform attackPosition;
   public Animator animator;
   public SpriteRenderer spriteRenderer;
   public GameObject gobBase;
 
-  public GameObject navigationTarget;
+  public GameObject attackTarget;
 
   new private Rigidbody rigidbody;
-  private NavMeshAgent navmeshAgent;
+  private NavMeshAgent navMeshAgent;
+  private GameObject primaryAttackTarget;
+  private LayerMask attackableLayerMask;
 
   public bool dead = false;
   private float stunTime = 0f;
 
 	private void
-  Start()
+  Awake()
   {
     rigidbody = GetComponent<Rigidbody>();
-    navmeshAgent = GetComponent<NavMeshAgent>();
+    navMeshAgent = GetComponent<NavMeshAgent>();
 
-    navmeshAgent.updateRotation = false;
+    primaryAttackTarget = attackTarget;
+
+    navMeshAgent.updateRotation = false;
+
     IEnumerator navigateCoroutine = Navigate();
     StartCoroutine(navigateCoroutine);
+
+    attackableLayerMask = LayerMask.NameToLayer("Attackable");
 	}
 
   private void
   Update()
   {
-    if(!dead)
+    if(dead)
+      return;
+
+    stunTime -= Time.deltaTime;
+    if(stunTime < 0)
     {
-      stunTime -= Time.deltaTime;
-      if(stunTime < 0)
-      {
-        stunTime = 0;
-        animator.SetBool("isHit", false);
-      }
-
-      Navigate();
-
-      Vector3 targetOffset = navigationTarget.transform.position - transform.position;
-      targetOffset.y = 0;
-      if(targetOffset.magnitude < attackRange)
-      {
-        animator.SetBool("isAttacking", true);
-      }
-      if(rigidbody.velocity.x < 0)
-        spriteRenderer.flipX = true;
-      else if(rigidbody.velocity.x > 0)
-        spriteRenderer.flipX = false;
+      stunTime = 0;
+      animator.SetBool("isHit", false);
     }
+
+    Navigate();
+
+    if(
+      !navMeshAgent.pathPending
+      && navMeshAgent.pathStatus != NavMeshPathStatus.PathComplete)
+    {
+      GetComponentInChildren<SpriteRenderer>().color = Color.red;
+      GameObject closestAttackable = GetClosestAttackable();
+      Debug.Log(closestAttackable);
+      if(closestAttackable != null)
+        attackTarget = closestAttackable;
+    }
+    else
+    {
+      GetComponentInChildren<SpriteRenderer>().color = Color.white;
+      attackTarget = primaryAttackTarget;
+    }
+    
+    if(TargetIsInRange(attackRange))
+      animator.SetBool("isAttacking", true);
+
+    if(rigidbody.velocity.x < 0)
+      spriteRenderer.flipX = true;
+    else if(rigidbody.velocity.x > 0)
+      spriteRenderer.flipX = false;
+  }
+
+  public bool 
+  TargetIsInRange(float range)
+  {
+    SphereCollider attackableSphereCollider = attackTarget.GetComponent<Attackable>().attackable.GetComponent<SphereCollider>();
+    Vector3 targetOffset = attackableSphereCollider.transform.position - transform.position;
+    targetOffset.y = 0;
+    return targetOffset.magnitude < attackableSphereCollider.radius + range;
   }
 
   private void
   FixedUpdate()
   {
-    navmeshAgent.velocity = Vector3.zero;
+    navMeshAgent.velocity = Vector3.zero;
     rigidbody.velocity = Vector3.zero;
     if(stunTime == 0)
     {
@@ -73,25 +101,60 @@ EnemyController : MonoBehaviour
       if(animator.GetBool("isAttacking"))
         speedMultiplier = 0f;
 
-      Vector3 moveDirection = Vector3.Normalize(navmeshAgent.desiredVelocity);
+      Vector3 moveDirection = Vector3.Normalize(navMeshAgent.desiredVelocity);
       rigidbody.AddForce(moveDirection * moveSpeed * speedMultiplier * Time.fixedDeltaTime, ForceMode.VelocityChange);
-    } 
+    }
     else
     {
       rigidbody.velocity = Vector3.zero;
     }
   }
 
+  private void
+  OnDrawGizmos()
+  {
+    Gizmos.color = Color.grey;
+    Gizmos.DrawWireSphere(transform.position, 1f); 
+  }
+
+  private GameObject
+  GetClosestAttackable()
+  {
+    RaycastHit hitInfo;
+
+    if(!Physics.SphereCast(
+      new Ray(transform.position, Vector3.Normalize(navMeshAgent.desiredVelocity)),
+      0.3f,
+      out hitInfo,
+      Mathf.Infinity,
+      ~LayerMask.NameToLayer("Attackable")))
+    {
+      return null;
+    }
+
+    Debug.DrawLine(transform.position, hitInfo.transform.position);
+
+    return hitInfo.transform.gameObject;
+  }
+
   public void
   MeleeTarget()
   {
-    Vector3 targetOffsetFromAttack = navigationTarget.transform.position - attackPosition.transform.position;
-    targetOffsetFromAttack.y = 0;
-    if(targetOffsetFromAttack.magnitude < attackRangeBeforeMiss)
+    if(!TargetIsInRange(attackRangeBeforeMiss))
+      return;
+
+    PlayerController playerController = attackTarget.GetComponent<PlayerController>();
+    if(playerController != null)
     {
-      PlayerController playerController = navigationTarget.GetComponent<PlayerController>();
-      if(playerController != null)
-        playerController.GetHit(1);
+      playerController.GetHit(1);
+      return;
+    }
+    
+    TowerController towerController = attackTarget.GetComponent<TowerController>();
+    if(towerController != null)
+    {
+      towerController.GetHit(1);
+      return;
     }
   }
 
@@ -135,7 +198,7 @@ EnemyController : MonoBehaviour
   {
     for(;;)
     {
-      navmeshAgent.SetDestination(navigationTarget.transform.position);
+      navMeshAgent.SetDestination(primaryAttackTarget.transform.position);
       yield return new WaitForSeconds(.2f);
     }
   }

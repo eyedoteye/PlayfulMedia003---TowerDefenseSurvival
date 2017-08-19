@@ -7,24 +7,32 @@ TowerController : MonoBehaviour
 {
   public int powerCost;
   public int gobCost;
+
+  public int health = 1;
   public int subtileWidth = 3;
   public int subtileHeight = 3;
+
   public float towerRange;
   public float damage = .9f;
   public float attackCooldown = 3f;
   public Color color = Color.white;
 
-  public LayerMask targetLayer;
   public GameObject arrowObject;
   public Vector3 arrowStartOffset;
+  public WorldController worldController;
+
+  public TileController centerTile;
+  public TileController[] tiles;
 
   private bool attackReady = true;
+  private LayerMask attackableLayerMask;
 
 	private void
   Start()
   {
     IEnumerator attackCooldownCoroutine = AttackCooldown();
     StartCoroutine(attackCooldownCoroutine);
+    attackableLayerMask = LayerMask.GetMask("Attackable");
 	}
 	
 	private void
@@ -40,6 +48,19 @@ TowerController : MonoBehaviour
       }
     }
 	}
+
+  public void
+  GetHit(int damage)
+  {
+    health -= damage;
+    if(health <= 0)
+    {
+      worldController.RemoveTower(
+        centerTile,
+        tiles
+      );
+    }
+  }
   
   public void
   Upgrade()
@@ -102,13 +123,13 @@ TowerController : MonoBehaviour
       this.transform.position,
       this.transform.position + this.transform.up * 10f,
       towerRange,
-      targetLayer);
+      attackableLayerMask);
 
     EnemyController enemyWithLeastHealth = null;
       
     foreach(Collider collisionWithTarget in collisionsWithTargetsInRange)
     {
-      EnemyController enemy = collisionWithTarget.gameObject.GetComponent<EnemyController>();
+      EnemyController enemy = collisionWithTarget.transform.parent.GetComponent<EnemyController>();
       if(enemy == null || enemy.dead)
         continue;
 
