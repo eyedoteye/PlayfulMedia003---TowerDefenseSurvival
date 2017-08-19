@@ -84,7 +84,18 @@ EnemyController : MonoBehaviour
   public bool 
   TargetIsInRange(float range)
   {
-    SphereCollider attackableSphereCollider = attackTarget.GetComponent<Attackable>().attackable.GetComponent<SphereCollider>();
+    if(attackTarget == null)
+      return false;
+
+    Attackable attackable = attackTarget.GetComponent<Attackable>();
+    if(attackable == null)
+      return false;
+
+    SphereCollider attackableSphereCollider = attackable.attackable.GetComponent<SphereCollider>();
+
+    if(attackableSphereCollider == null)
+      return false;
+
     Vector3 targetOffset = attackableSphereCollider.transform.position - transform.position;
     targetOffset.y = 0;
     return targetOffset.magnitude < attackableSphereCollider.radius + range;
