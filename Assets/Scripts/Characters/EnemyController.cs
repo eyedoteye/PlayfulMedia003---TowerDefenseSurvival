@@ -135,7 +135,7 @@ EnemyController : MonoBehaviour
 
     if(!Physics.SphereCast(
       new Ray(transform.position, Vector3.Normalize(navMeshAgent.desiredVelocity)),
-      0.6f,
+      0.5f,
       out hitInfo,
       Mathf.Infinity,
       ~LayerMask.NameToLayer("Attackable")))
