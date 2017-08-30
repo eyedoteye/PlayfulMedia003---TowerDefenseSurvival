@@ -23,24 +23,7 @@ public class UpgradeMenuController : MonoBehaviour
 
   private void Update()
   {
-    UpgradesTransformBuffer upgradesTransformBuffer =
-      GetUpgradesTransformBuffer();
-
-    for(
-      int upgradeIndex = 0;
-      upgradeIndex < upgrades.Length;
-      ++upgradeIndex)
-    {
-      Vector3 upgradePosition = GetUpgradePosition(
-        upgradeIndex, upgrades.Length,
-        upgradesTransformBuffer.intoScreenAxis,
-        upgradesTransformBuffer.basePosition,
-        upgradesTransformBuffer.localOffset);
-
-      RectTransform upgradeRectTransform =
-        upgrades[upgradeIndex].GetComponent<RectTransform>();
-      upgradeRectTransform.position = upgradePosition;
-    }
+    UpdateUpgradePositions();
   }
 
   private void OnDrawGizmos()
@@ -67,6 +50,34 @@ public class UpgradeMenuController : MonoBehaviour
 
       Gizmos.DrawLine(menuCenter, upgradePosition);
       Gizmos.DrawWireSphere(upgradePosition, 1f);
+    }
+  }
+
+  public void UpdateUpgradePositions()
+  {
+    UpgradesTransformBuffer upgradesTransformBuffer =
+      GetUpgradesTransformBuffer();
+
+    for(
+      int upgradeIndex = 0;
+      upgradeIndex < upgrades.Length;
+      ++upgradeIndex)
+    {
+      Vector3 upgradePosition = GetUpgradePosition(
+        upgradeIndex, upgrades.Length,
+        upgradesTransformBuffer.intoScreenAxis,
+        upgradesTransformBuffer.basePosition,
+        upgradesTransformBuffer.localOffset);
+
+      GameObject upgrade = upgrades[upgradeIndex];
+
+      if(upgrade == null)
+        continue;
+
+      RectTransform upgradeRectTransform =
+        upgrades[upgradeIndex].GetComponent<RectTransform>();
+      
+      upgradeRectTransform.position = upgradePosition;
     }
   }
 

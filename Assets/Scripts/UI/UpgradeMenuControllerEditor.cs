@@ -46,8 +46,29 @@ public class UpgradeMenuControllerEditor : Editor
 
     if(oldMenuRadiusHandleWorldPoint != newMenuRadiusHandleWorldPoint)
     {
+      Undo.RecordObject(upgradeMenuController, "Update Upgrade Position");
       upgradeMenuController.SetMenuRadiusHandleWorldPoint(
         newMenuRadiusHandleWorldPoint);
+
+      GameObject[] upgrades = upgradeMenuController.upgrades;
+
+      for(
+        int upgradeIndex = 0;
+        upgradeIndex < upgrades.Length;
+        ++upgradeIndex)
+      {
+        GameObject upgrade = upgrades[upgradeIndex];
+
+        if(upgrade == null)
+          continue;
+
+        RectTransform upgradeRectTransform =
+          upgrades[upgradeIndex].GetComponent<RectTransform>();
+      
+        Undo.RecordObject(upgradeRectTransform, "Update Upgrade Position");
+      }
+
+      upgradeMenuController.UpdateUpgradePositions();
     }
   }
 }
