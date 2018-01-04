@@ -41,6 +41,7 @@ PlayerController : MonoBehaviour
     Vector2 leftJoystickInput;
     leftJoystickInput.x = Input.GetAxisRaw("Horizontal");
     leftJoystickInput.y = Input.GetAxisRaw("Vertical");
+    Debug.Log(leftJoystickInput);
 
     float speedMultiplier = 1f;
     if(animator.GetBool("isHit"))
@@ -95,11 +96,11 @@ PlayerController : MonoBehaviour
           baseTower.gameObject,
           centerTileController,
           tileControllers);
-          
+
           powerHead.availablePower -= baseTower.powerCost;
           gobs -= baseTower.gobCost;
         }
-        
+
       }
       else if(tileControllers != null)
       {
@@ -127,7 +128,7 @@ PlayerController : MonoBehaviour
       }
     }
   }
-	
+
   public void
   ResetAnimationBools()
   {

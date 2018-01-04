@@ -281,7 +281,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -118, y: 22}
+  m_AnchoredPosition: {x: 138.18422, y: -0.00000016615013}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &207075030
@@ -524,7 +524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 121, y: 22}
+  m_AnchoredPosition: {x: -138.18422, y: -0.00000016615013}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &240742167
@@ -1079,9 +1079,8 @@ MonoBehaviour:
   basicTowerController: {fileID: 1868381053}
   powerHeadController: {fileID: 1630926525}
   worldController: {fileID: 730042933}
-  menuRadialDistance: 150
-  radialOffset: 0
-  screenOffset: {x: 0, y: 22}
+  menuRadius: 49.659958
+  screenOffset: {x: 0, y: 0}
   upgrades:
   - {fileID: 240742165}
   - {fileID: 207075028}
@@ -2271,7 +2270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1337553854
 MonoBehaviour:
   m_ObjectHideFlags: 0
